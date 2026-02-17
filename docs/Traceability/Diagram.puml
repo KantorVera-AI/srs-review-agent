@@ -1,0 +1,88 @@
+@startuml
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam ArrowColor #555555
+skinparam ArrowThickness 1
+skinparam ArrowFontSize 10
+
+title SaMD Documentation & SRS Interaction Overview
+
+package "Regulatory & Standards Context" {
+  rectangle "EU MDR / IVDR\n(Focus: Annex I, II, III, XIV,\nRule 11, PMS/PMCF)" as MDR
+  rectangle "US FDA Regulations\n(QMSR / 21 CFR 820,\nLabeling, SaMD/AI Guidance)" as FDA
+  rectangle "Core Standards\n- ISO 13485 (QMS)\n- IEC 62304 (SW lifecycle)\n- IEC 82304-1 (health SW)\n- ISO 14971 (risk)\n- IEC 62366-1 (usability)\n- IEC 81001-5-1 (cyber)" as CORE
+  rectangle "AI Frameworks\n- EU AI Act (Annex IV)\n- IMDRF SaMD AI/Clinical Eval\n- FDA GMLP, PCCP" as AI_REG
+}
+
+rectangle "Intended Use &\nIndications for Use" as INTUSE
+rectangle "Device Classification\n(EU class + Rule 11,\nIMDRF category, FDA class)" as CLASS
+
+rectangle "Risk Management File\n(ISO 14971: hazards,\ncontrols, RM plan/report)" as RMF
+rectangle "Usability Engineering File\n(IEC 62366-1)" as UXF
+rectangle "Cybersecurity File\n(IEC 81001-5-1,\nFDA Cybersecurity)" as CYB
+rectangle "AI/ML Documentation\n(Model, Data, PCCP,\nAI Act Annex IV)" as AIDOC
+rectangle "Clinical Evaluation\n(CEP/CER, IMDRF SaMD)" as CER
+
+rectangle "Software Requirements\nSpecification (SRS)" as SRS #CCFFCC
+
+rectangle "Software Architecture &\nDesign Specification" as ARCH
+rectangle "Verification & Validation\nPlans / Test Specs" as VVP
+rectangle "Instructions for Use (IFU)\n& User Documentation" as IFU
+rectangle "Technical Documentation /\nDesign History File" as TECH
+
+' Regulatory influence
+MDR --> INTUSE
+MDR --> CLASS
+MDR --> RMF
+MDR --> UXF
+MDR --> CER
+MDR --> TECH
+
+FDA --> INTUSE
+FDA --> CLASS
+FDA --> CYB
+FDA --> CER
+FDA --> TECH
+
+CORE --> RMF
+CORE --> UXF
+CORE --> CYB
+CORE --> SRS
+CORE --> ARCH
+CORE --> VVP
+
+AI_REG --> AIDOC
+AI_REG --> CER
+
+' Upstream to SRS
+INTUSE --> SRS : defines\nclinical scope
+CLASS --> SRS : drives\nrigor & safety level
+RMF --> SRS : risk controls\nbecome requirements
+UXF --> SRS : usability &\nUI requirements
+CYB --> SRS : security &\nprivacy requirements
+AIDOC --> SRS : AI perf,\ncohorts, limits
+CER --> SRS : clinical\nperformance targets
+
+' Feedback from SRS
+SRS --> INTUSE : new\nclaims may expand\nintended use
+SRS --> CLASS : changed\nfunction may change\nclassification
+SRS --> RMF : new/changed\nfunctions impact hazards\n& controls
+SRS --> UXF : new\nworkflows, UIs to\nvalidate
+SRS --> CYB : new\ninterfaces/data flows\nexpand threat model
+SRS --> AIDOC : new\nalgorithm requirements\nor PCCP scope
+SRS --> CER : changed\nperformance/claims\nimpact evidence
+
+' Downstream design & tests
+SRS --> ARCH : requirements\ndrives architecture
+ARCH --> SRS : feasibility\nmay constrain or refine\nrequirements
+
+SRS --> VVP : test cases &\ncoverage derive\nfrom SRS
+VVP --> SRS : test results\ncan trigger SRS updates
+
+SRS --> IFU : user-facing\nbehavior and warnings
+IFU --> SRS : constraints\nand warnings may be\ncaptured as requirements
+
+SRS --> TECH : SRS version\nis core design input
+TECH --> SRS : change\ncontrol & traceability\nconstraints
+
+@enduml
