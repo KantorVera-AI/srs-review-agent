@@ -1,0 +1,50 @@
+@startuml doc-relationships
+!theme plain
+skinparam rectangle {
+  BackgroundColor #F3E5F5
+}
+
+title Document Relationships (from Traceability Tables)
+
+package "🟦 Static Baseline" {
+  [Intended Use]
+  [Classification]
+}
+
+package "🟨 Dynamic Upstream" {
+  [Risk File]
+  [UX File]
+  [Cyber File]
+  [AI Docs]
+  [Clinical Eval]
+}
+
+rectangle "🟢 SRS\n(Central Hub)" as SRS
+
+package "Downstream" {
+  [Architecture]
+  [V&V Plans]
+  [IFU]
+  [Tech Doc]
+}
+
+[Intended Use] --> SRS : scope/claims
+[Classification] --> SRS : risk level
+[Risk File] --> SRS : controls
+[UX File] --> SRS : UI reqs
+[Cyber File] --> SRS : security
+[AI Docs] --> SRS : perf targets
+
+SRS ..> [Risk File] : 🔴 safety changes
+SRS ..> [UX File] : 🔴 UI changes
+SRS ..> [Cyber File] : 🔴 security
+SRS ..> [AI Docs] : 🔴 algo changes
+SRS --> [Architecture] : primary driver
+SRS --> [V&V Plans] : 🔴 test cases
+
+note right of SRS
+  SRS Review Agent monitors
+  changes here → notifies owners
+end note
+
+@enduml

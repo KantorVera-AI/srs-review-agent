@@ -1,0 +1,46 @@
+@startuml c4-container-fixed
+!theme plain
+skinparam component {
+  BackgroundColor #E8F5E8
+  BorderColor #2E7D32
+}
+skinparam rectangle {
+  BackgroundColor #E1F5FE
+  BorderColor #0277BD
+}
+
+title SRS Review Agent - Container View
+
+package "SRS Review Agent Boundary" {
+  component "SRS Monitor\n(Webhook)" as Monitor
+  component "SRS Parser\n(Analysis)" as Parser
+  component "Trace Resolver\n(Lookup)" as Resolver
+  component "Findings Service\n(Generation)" as Findings
+  component "Notification Router\n(Delivery)" as Router
+}
+
+actor "🟦 Regulatory Lead" as Reg
+actor "🟨 Document Owners" as DocOwner
+actor "🟢 SRS Owner" as SRSOwner
+
+cloud "GitHub\nSRS Repo" as Git
+database "Document Mgmt\nSystem" as DMS
+rectangle "Jira/Slack\nNotifications" as Jira
+
+Reg -down-> Resolver : baselines
+Git -down-> Monitor : webhooks
+Monitor -right-> Parser : diffs
+Parser -down-> Resolver : change type
+Resolver <-> DMS : doc refs
+Resolver -down-> Findings : impacted docs
+Findings -right-> Router : findings
+Router -up-> Jira : alerts
+Router -up-> DocOwner : findings
+SRSOwner <-> Parser : suggestions
+
+note right of Resolver
+  Uses Tables 1,2,3
+  for traceability
+end note
+
+@enduml

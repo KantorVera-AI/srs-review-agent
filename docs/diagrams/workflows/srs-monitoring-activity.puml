@@ -1,0 +1,33 @@
+@startuml
+title SRS Monitoring → Findings
+
+skinparam backgroundColor white
+
+|Git Repo|
+start
+:New SRS commit;
+
+|Monitoring|
+:Detect change;
+:Parse SRS diff;
+:Classify type 
+(Clinical/Risk/UX/...);
+
+|Traceability|
+:Check Table 2 matrix;
+:Resolve Table 1 owners;
+
+|Findings|
+:Generate findings;
+
+fork
+  |Notification|
+  :Jira ticket;
+  :Slack alert;
+fork again
+  |Document Owner|
+  :Review findings;
+end fork
+
+stop
+@enduml

@@ -1,0 +1,43 @@
+@startuml use-cases
+!theme plain
+skinparam actor {
+  BackgroundColor #FFF3E0
+}
+skinparam usecase {
+  BackgroundColor #E3F2FD
+  BorderColor #1976D2
+}
+
+title Use Cases - SRS Review Agent
+
+actor "🟦 Regulatory Lead" as Reg
+actor "🟨 Document Owner\n(Risk/UX/Cyber/AI)" as DocOwner
+actor "🟢 SRS Owner" as SRSOwner
+actor "QA/Reg" as QA
+
+rectangle "SRS Review Agent" {
+  usecase (Submit baseline docs) as UC1
+  usecase (Review SRS suggestions) as UC2
+  usecase (Monitor SRS changes) as UC3
+  usecase (Classify SRS change) as UC4
+  usecase (Generate findings) as UC5
+  usecase (Review findings) as UC6
+  usecase (Close findings) as UC7
+}
+
+Reg ..> UC1
+DocOwner ..> UC1
+SRSOwner ..> UC2
+SRSOwner ..> UC3
+UC3 ..> UC4 : <<include>>
+UC4 ..> UC5 : <<include>>
+UC5 ..> UC6
+DocOwner ..> UC6
+QA ..> UC7
+
+note bottom
+  Baseline → SRS suggestions
+  SRS changes → owner findings
+end note
+
+@enduml

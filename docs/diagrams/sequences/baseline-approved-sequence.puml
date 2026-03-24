@@ -1,0 +1,29 @@
+@startuml baseline-sequence
+!theme plain
+title Sequence: Baseline Document Approved
+
+participant "Document\nOwner" as Owner
+participant "Baseline\nManager" as Baseline
+participant "SRS\nParser" as Parser
+participant "SRS\nOwner" as SRSOwner
+participant "GitHub" as Git
+
+Owner -> Baseline: submit baseline doc
+Baseline -> Parser: extract requirements
+Parser -> SRSOwner: generate suggestions
+SRSOwner -> Parser: review & approve
+Parser -> Git: create PR with suggestions
+SRSOwner -> Git: merge PR
+Git -> Baseline: confirm SRS updated
+Baseline -> Owner: notify "integrated"
+
+alt Owner rejects
+  SRSOwner -> Baseline: reject suggestions
+  Baseline -> Owner: notify "rejected"
+end
+
+note over Parser
+  Uses Table 1 "Impacts SRS?"
+end note
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+title Workflow: Document Baseline → SRS Suggestions
+
+|#AntiqueWhite|Document Owner|
+start
+:Create/Approve baseline;
+:Submit to SRS Agent;
+
+|#LightBlue|Baseline Engine|
+:Parse baseline doc;
+:Extract requirements;
+:Map to SRS impact matrix;
+:Generate SRS suggestions;
+
+|#LightGreen|SRS Owner|
+:Review suggestions;
+if (Accept?) then (yes)
+  :Update SRS;
+  :Commit to Git;
+else (no)
+  :Reject with reason;
+endif
+
+|#LightYellow|Notification|
+:Notify Document Owner of status;
+
+stop
+@enduml
