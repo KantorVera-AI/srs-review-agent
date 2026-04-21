@@ -1,0 +1,21 @@
+@startuml srs-change-sequence
+!theme plain
+title Sequence: SRS Change Detected
+
+actor "Document Repository /\nVersion Control" as DocRepo
+participant "Event\nReceiver" as Hook
+participant "Parser" as Parser
+participant "Classifier" as Class
+participant "Resolver" as Res
+participant "Document\nOwner" as Owner
+participant "Workflow /\nTask System" as TaskSystem
+
+DocRepo -> Hook: Document change event
+Hook -> Parser: parse SRS diff
+Parser -> Class: classify change\ntype (Risk/UI/etc)
+Class -> Res: resolve impacted docs
+Res -> Owner: send findings
+Owner -> TaskSystem: acknowledge
+note over Owner, TaskSystem: Owner reviews\nusing traceability tables
+
+@

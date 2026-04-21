@@ -1,0 +1,48 @@
+@startuml system-context
+!theme plain
+skinparam backgroundColor white
+skinparam component {
+  BackgroundColor #E1F5FE
+  BorderColor #0277BD
+}
+
+title System Context - SRS Review Agent
+actor "🟦 Regulatory Lead" as Reg
+actor "🟨 Risk Eng" as Risk
+actor "🟨 UX Owner" as UX
+actor "🟨 Cyber Eng" as Cyber
+actor "🟨 AI Eng" as AI
+actor "🟢 SRS Owner" as SRSOwner
+actor "QA/Reg" as QA
+
+rectangle "SRS Review Agent" {
+  component "Core Engine" as Engine
+}
+
+cloud "Document Repository /\nVersion Control" as DocRepo
+database "Document Management\nSystem (DMS)" as DMS
+rectangle "Workflow / Notification\nSystem" as Notify
+
+Reg --> Engine : baseline docs
+Risk --> Engine : baseline docs
+UX --> Engine : baseline docs
+Cyber --> Engine : baseline docs
+AI --> Engine : baseline docs
+
+DocRepo --> Engine : new SRS changes
+Engine --> DMS : check references
+Engine --> Notify : findings → owners
+Notify --> Reg
+Notify --> Risk
+Notify --> UX
+Notify --> Cyber
+Notify --> AI
+Notify --> SRSOwner
+
+note right of Engine
+  Monitors SRS → notifies
+  document owners based
+  on change impact matrix
+end note
+
+@enduml

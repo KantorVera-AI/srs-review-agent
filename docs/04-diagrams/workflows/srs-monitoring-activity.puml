@@ -1,0 +1,30 @@
+@startuml
+title SRS Monitoring → Findings
+
+skinparam backgroundColor white
+
+|Document Repository|
+start
+:Document change event;
+
+|Monitoring|
+:Detect change;
+:Parse SRS diff;
+:Classify type 
+(Clinical/Risk/UX/...);
+
+|Traceability|
+:Check Table 2 matrix;
+:Resolve Table 1 owners;
+
+|Findings|
+:Generate findings;
+
+fork
+  |Notification|
+  :Workflow task;
+  :Alert channel;
+fork again
+  |Document Owner|
+  :Review findings;
+e

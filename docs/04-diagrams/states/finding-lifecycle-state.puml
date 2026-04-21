@@ -1,0 +1,32 @@
+@startuml finding-state
+!theme plain
+skinparam state {
+  BackgroundColor #E1F5FE
+  BorderColor #0277BD
+}
+
+[*] --> Draft : new finding
+Draft --> Sent : notify owner
+Sent --> InReview : owner accepts
+InReview --> Accepted : approved
+InReview --> Rejected : declined
+InReview --> Clarify : needs info
+InReview --> Route : wrong owner
+InReview --> Escalate : above review level
+InReview --> OutOfScope : outside boundary
+Clarify --> InReview : info provided
+Route --> InReview : re-assigned
+Escalate --> Resolved : escalation handled
+OutOfScope --> Closed : documented
+
+Accepted --> Resolved : SRS updated
+Rejected --> Closed : reason logged
+Resolved --> [*]
+Closed --> [*]
+
+note bottom
+  States ensure audit trail
+  and change control
+end note
+
+@enduml

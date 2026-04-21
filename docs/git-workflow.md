@@ -13,5 +13,18 @@ Edit → Source Control → Commit → Sync
 
 ## Architect Python setup
 
+```bash
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate   # or .venv\Scripts\activate on Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Verify installation
+python -c "import langchain; print('langchain ok')"
+```
+
 ## Agent triggers (future)
-PR opened → .github/workflows/agent.yml → analyze → PR comment
+
+Agent triggers are defined in `docs/03-integration/operating-model.md`. The trigger model is technology-neutral — the specific implementation depends on the integration tier chosen for each source system. See `docs/03-integration/system-categories.md` for the trigger capability of each system category.

@@ -1,0 +1,38 @@
+@startuml
+title SRS Review Agent - System Context (UML)
+
+skinparam component {
+  BackgroundColor #E8F5E8
+}
+skinparam actor {
+  BackgroundColor #FFF3E0
+}
+
+actor "🟦 Regulatory Lead" as Reg
+actor "🟨 Document Owners" as DocOwner
+actor "🟢 SRS Owner" as SRSOwner
+
+package "SRS Review Agent System" {
+  component "SRS Monitor" as Monitor
+  component "SRS Parser" as Parser  
+  component "Trace Resolver" as Resolver
+  component "Findings Service" as Findings
+  component "Notification Router" as Router
+}
+
+cloud "Document Repository /\nVersion Control" as DocRepo
+database "Document System" as DMS
+rectangle "Workflow /\nNotification System" as Notify
+
+Reg --> Resolver : submit baselines
+DocRepo --> Monitor : events
+Monitor --> Parser : diffs
+Parser --> Resolver : classify
+Resolver <--> DMS : references
+Resolver --> Findings : impacted docs
+Findings --> Router : findings
+Router --> Notify : alerts
+Router --> DocOwner : findings
+SRSOwner <--> Parser : suggestions
+
+note right 
