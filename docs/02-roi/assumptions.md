@@ -186,3 +186,35 @@ After Release 2: update UC4's Effort score based on AI Architect's assessment of
 After a major regulatory guidance update (FDA AI/ML guidance finalisation; EU AI Act Article 83 implementing acts): review Risk Savings scores for UC4 and UC7.
 
 After 6 months of production data: replace Phase 2 time-saving estimates with actuals from real finding events.
+
+---
+
+## Worked scoring examples
+
+These examples show the full arithmetic behind two scores at opposite ends of the priority ranking. Use them to sanity-check any proposed parameter change.
+
+### UC1 — SRS monitoring and change classification
+
+Parameters: Risk Savings = 4, Impact = 4, Confidence = 0.9, Effort = 2
+
+```
+Score = (4 × 4 × 0.9) / 2 × 10
+      = (14.4) / 2 × 10
+      = 7.2 × 10
+      = 72
+```
+
+UC1 benefits from high confidence (test data and technical approach fully defined) and low effort (document ingestion already scoped). If a challenger proposes reducing Impact from 4 to 3 (team is faster at manual review than assumed), the score drops to 54 — still second place, but the gap with UC3 narrows.
+
+### UC4 — Change control plan boundary check
+
+Parameters: Risk Savings = 5, Impact = 3, Confidence = 0.6, Effort = 4
+
+```
+Score = (5 × 3 × 0.6) / 4 × 10
+      = (9) / 4 × 10
+      = 2.25 × 10
+      = 23
+```
+
+UC4 has Risk Savings = 5 (matching UC3) but scores 23 versus UC3's 85. The difference is entirely in Confidence (0.6 vs 0.85) and Effort (4 vs 2). If the FDA PCCP guidance finalises and confidence rises to 0.8, and if the parser effort is lower than feared (Effort = 3), the score becomes 40 — still behind UC2/UC7 but meaningfully higher. This is the correct trigger to re-evaluate UC4's release placement.
