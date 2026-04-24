@@ -129,4 +129,4 @@ Before marking UC3 complete in the initial release:
 - [ ] Ambiguous link flagged correctly when a requirement scope changes but the link record is not updated
 - [ ] Dual-direction check works: agent detects both RC→SRS and SRS→RC gaps
 - [ ] Reclassification trigger fires when a change removes isolation from a software item linked to a Class C requirement
-- [ ] Output depth visibly differs between
+- [ ] Output depth visibly differs between Category I and Category IV products for the same gap type

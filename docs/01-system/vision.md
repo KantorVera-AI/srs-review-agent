@@ -65,4 +65,33 @@ An AI decision-support agent that integrates into the document management and ch
 - SBOM-aware SOUP vulnerability monitoring (Release 2)
 
 ### For the organisation
-- **Faster time to approval** — reduce manual review bottlenecks and catch deficiencies before they reach the regulator
+- **Faster time to approval** — reduce manual review bottlenecks and catch deficiencies before they reach the regulatory reviewer
+- **Lower regulatory risk** — systematic change impact assessment reduces the probability of deficiency rounds in both EU MDR and FDA submissions
+- **Scalable quality** — consistent standards adherence as team size and product complexity grow
+- **Decision support** — full regulatory cost visibility for proposed changes enables informed build-versus-defer decisions
+
+---
+
+## Designed for regulated environments
+
+- **Non-binding** — all outputs are proposals. Humans decide.
+- **Traceable** — every finding links to a specific standard clause and the exact document version that was analysed
+- **Auditable** — full decision log suitable for regulatory inspection, QMS integration, and technical file evidence
+- **Classification-calibrated** — output depth, severity, and routing reflect the device's IMDRF significance category and software item safety class
+- **Explainable** — clear reasoning and citations for every finding
+- **Human-centric** — supports expert judgment, never replaces it
+- **Bounded** — the agent is a compliance intelligence layer, not a QMS replacement
+
+---
+
+## MVP scope
+
+The initial release focuses on:
+
+- Monitoring SRS and risk files for change events
+- Classifying change type and assessing regulatory impact
+- Generating citation-backed findings with IMDRF and software item safety class calibration
+- Delivering findings to document owners for review and disposition
+- Logging the full audit trail
+
+This establishes the core monitoring and traceability foundation on which all subsequent releases build. See [`02-roi/roadmap.md`](../02-roi/roadmap.md) for the full release plan.

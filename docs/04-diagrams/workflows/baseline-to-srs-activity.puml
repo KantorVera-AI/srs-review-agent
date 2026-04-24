@@ -24,4 +24,5 @@ endif
 |#LightYellow|Notification|
 :Notify Document Owner of status;
 
-s
+stop
+@enduml

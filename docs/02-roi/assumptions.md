@@ -185,4 +185,4 @@ After Release 2: update UC4's Effort score based on AI Architect's assessment of
 
 After a major regulatory guidance update (FDA AI/ML guidance finalisation; EU AI Act Article 83 implementing acts): review Risk Savings scores for UC4 and UC7.
 
-After 6 months of production data: replace Phase 2 time-saving estimates with actuals fro
+After 6 months of production data: replace Phase 2 time-saving estimates with actuals from real finding events.

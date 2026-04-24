@@ -112,3 +112,4 @@ For the cross-check against the threat model to produce high-quality findings, t
 | Cybersecurity activities in health software lifecycle | IEC 81001-5-1:2021 | Multiple — architecture, requirements, maintenance |
 | Security requirements for networked devices | EU MDR Annex I | GSPR 17 |
 | Cybersecurity in premarket submissions | FDA cybersecurity guidance | 2023 (updated guidance anticipated 2026) |
+| Application security verification | OWASP ASVS | v4.0 |

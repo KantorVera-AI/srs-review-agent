@@ -23,4 +23,4 @@
 | 🟣 **Reclassification trigger** | 🔴 H | 🔴 H | 🟢 L | 🟢 L | 🟡 M | 🟡 M | 🟡 M | 🟢 L |
 | **Non-Functional**  | 🟢 L           | 🟡 M           | 🟢 L           | 🟢 L           | 🟡 M           | 🟢 L           | **🔴 H** | 🟢 L           |
 
-**Reverse Flow**: All Baseline docs → SRS suggestions (**🔴 Hi
+**Reverse Flow**: All Baseline docs → SRS suggestions (**🔴 High**)

@@ -121,4 +121,4 @@ Before marking UC1 complete in the initial release:
 - [ ] Reclassification trigger detection fires correctly on the isolation-removal test scenario in `data/raw/`
 - [ ] Findings are routed to the correct owner role in all test scenarios
 - [ ] IMDRF Category I and Category IV produce visibly different output depth for the same change type
-- [ ] Missing metadata fallback behaviour matches specification in `output-calibration
+- [ ] Missing metadata fallback behaviour matches specification in `output-calibration.md`

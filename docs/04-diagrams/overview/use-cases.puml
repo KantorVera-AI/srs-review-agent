@@ -28,4 +28,25 @@ rectangle "SRS Review Agent" {
   usecase (Monitor document\nchange events) as MonitorChanges
   usecase (Classify change\ntype and impact) as ClassifyChange
   usecase (Generate citation-\nbacked findings) as GenerateFindings
-  usecase (Review and\ndi
+  usecase (Review and\ndisposition findings) as ReviewFindings
+  usecase (Escalate or\nclose findings) as CloseFindings
+}
+
+Reg ..> SubmitBaseline
+DocOwner ..> SubmitBaseline
+SRSOwner ..> ReviewSuggestions
+SRSOwner ..> MonitorChanges
+MonitorChanges ..> ClassifyChange : <<include>>
+ClassifyChange ..> GenerateFindings : <<include>>
+GenerateFindings ..> ReviewFindings
+DocOwner ..> ReviewFindings
+RA ..> ReviewFindings
+QA ..> CloseFindings
+
+note bottom
+  Baseline → SRS suggestions
+  SRS changes → owner findings
+  All findings require human disposition
+end note
+
+@enduml

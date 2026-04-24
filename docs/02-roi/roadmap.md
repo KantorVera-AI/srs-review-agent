@@ -141,4 +141,3 @@ These are not in the current roadmap but have been identified as candidates for 
 | SOUP monitoring | When a SOUP component receives a vulnerability disclosure or version update, flag SRS requirements that may be affected | Requires SBOM integration and vulnerability feed — separate infrastructure |
 | Localisation cascade | When a SRS change affects user-facing text, flag all translated documentation that requires updating | Lower regulatory priority; high organisational variability |
 | Design review support | Generate a pre-review summary of open findings and traceability gaps ahead of a formal design review milestone | Close to UC6 but different audience and trigger — worth distinguishing once UC6 is built |
-                           

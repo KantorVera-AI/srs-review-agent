@@ -24,4 +24,7 @@ end
 
 note over Parser
   Uses document master list
-  "Impacts SRS?" co
+  "Impacts SRS?" column
+end note
+
+@enduml

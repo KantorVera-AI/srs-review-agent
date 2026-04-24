@@ -160,4 +160,14 @@ The agent's analysis store (the non-authoritative working store) may have data T
 
 ## Finding identifiers
 
-Every finding is assigned a unique identifier a
+Every finding is assigned a unique identifier at generation time. The identifier format is:
+
+```
+F-{YYYYMMDD}-{SEQUENCE}
+```
+
+Example: `F-20260415-0047` — the 47th finding generated on 15 April 2026.
+
+The identifier is immutable. If a finding is re-generated after a SRS change (for example, a previous finding was resolved and the same gap reappears after a subsequent change), the new finding receives a new identifier. The link between the new finding and the previous finding that addressed the same gap is recorded in the finding metadata but the identifiers remain distinct.
+
+SRS requirement identifiers, risk control identifiers, and software item identifiers referenced in a finding are those that were current at the time of finding generation and are bound to the specific document version that was analysed. If identifiers change in a subsequent document version, the finding retains the identifiers from the analysed version — it does not auto-update.

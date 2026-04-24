@@ -119,4 +119,15 @@ For dual-market EU/US products at IMDRF Category III, the expected annual value 
 ## What this model does not include
 
 This analysis does not quantify:
-- Time-to-market acceleration value — faster, more confide
+- Time-to-market acceleration value — faster, more confident submissions create competitive advantage
+- Knowledge retention — institutional knowledge about which SRS changes affect which documents is currently held by individuals; the agent makes it systematic and durable
+- Onboarding cost reduction — new regulatory or quality staff can operate to a consistent standard from day one
+- Compounding multi-market effect — for products in three or more markets, avoided cost multiplies further
+
+All of these would increase the ROI figures if quantified. The model is intentionally conservative.
+
+---
+
+## How to challenge these numbers
+
+Go to `assumptions.md`. Identify the parameter (Risk Savings, Impact, Confidence, or Effort) and the assumption behind it. Propose a revised value. Re-run the formula. The score will shift and the roadmap may shift with it. That is the intended behaviour — this is a working document, not a fixed plan.

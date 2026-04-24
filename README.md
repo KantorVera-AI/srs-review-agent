@@ -88,4 +88,11 @@ srs-review-agent/
 1. **Non-binding** — all findings are proposals. Humans accept, reject, defer, or escalate.
 2. **Traceable** — every finding cites the specific standard clause and source document version that produced it.
 3. **Auditable** — every finding and every disposition is logged with a timestamp, a finding ID, and a rationale.
-4. **Classification-calibrated** — output depth, severity thresholds, and routing rules vary by IMDRF category a
+4. **Classification-calibrated** — output depth, severity thresholds, and routing rules vary by IMDRF category and software item safety class.
+5. **Bounded** — the agent never becomes the system of record. Authoritative records remain in the QMS, DMS, and risk management system.
+
+---
+
+## Current status
+
+See [roadmap](docs/02-roi/roadmap.md).

@@ -178,4 +178,4 @@ Classification tier is the single largest driver of the agent's value. The cost 
 
 For products targeting multiple markets, the cost of a missed finding at Category III or IV is effectively multiplied across the number of markets where the same gap would trigger a deficiency.
 
-The agent's Risk Savings scoring in the ROI model (`docs/02-roi/assumptions.md`) uses these cost ranges as the basis for the Risk Savings parameter. Teams with a specific market profile and submission history should adjust these figures 
+The agent's Risk Savings scoring in the ROI model (`docs/02-roi/assumptions.md`) uses these cost ranges as the basis for the Risk Savings parameter. Teams with a specific market profile and submission history should adjust these figures to reflect their actual cost experience.

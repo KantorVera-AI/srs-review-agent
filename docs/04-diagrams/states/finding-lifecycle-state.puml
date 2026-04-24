@@ -27,4 +27,8 @@ Resolved --> [*]
 Closed --> [*]
 
 note bottom
-  Sta
+  States ensure audit trail
+  and change control
+end note
+
+@enduml

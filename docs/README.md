@@ -143,4 +143,4 @@ All diagrams use technology-neutral labels. Render using any PlantUML renderer o
 
 ## Contributing
 
-Changes to `Stable` documents require a documented rationale. Changes to use case files in `01-system/use-cases/` should reference the issue or decision that drove the change. The document most likely to need updating as the project matures is `02-ro
+Changes to `Stable` documents require a documented rationale. Changes to use case files in `01-system/use-cases/` should reference the issue or decision that drove the change. The document most likely to need updating as the project matures is `02-roi/assumptions.md` — revise Confidence scores after each release based on actual finding acceptance rates.
