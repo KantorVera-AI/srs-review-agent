@@ -1,5 +1,11 @@
 # Table 3: Owner Responsibilities
 
+**Status:** Working draft  
+**Owner:** Product Management  
+**Audience:** All stakeholders
+
+
+
 ## 🎨 Role Legend
 
 🟦 **Static Owners** (Strategic/Baseline)
@@ -12,6 +18,7 @@
 | Owner Role                     | Documents Owned                    | Monitoring                    | Receives SRS Findings         | Triggers SRS Review          |
 | ------------------------------ | ---------------------------------- | ----------------------------- | ----------------------------- | ---------------------------- |
 | **🟦 Regulatory Lead**   | Intended Use, Class, IFU, Tech Doc | Strategic baselines           | Clinical/UI changes           | **🔴 ✅ Baselines**    |
+| **🟦 PRRC (EU MDR)** | Regulatory compliance oversight | Mandatory on Critical + reclassification findings | **🔴 All Critical findings** | **🔴 ✅ Reclassification** |
 | **🟨 Risk/Safety Eng**   | Risk Management File               | **🔴 Continuous + PMS** | **🔴 Safety changes**   | **🔴 ✅ Hazards**      |
 | **🟨 UX/Human Factors**  | Usability File                     | Per UI release + PMS          | **🔴 UI changes**       | ✅ Use errors                |
 | **🟨 Cybersecurity Eng** | Cyber/Threat Model                 | Per vuln + release            | **🔴 Security changes** | **🔴 ✅ Threats**      |

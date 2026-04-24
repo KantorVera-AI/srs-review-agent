@@ -1,5 +1,11 @@
 # Documentation Navigation Guide
 
+**Status:** Stable
+**Owner:** Product Management
+**Audience:** All stakeholders
+
+---
+
 This guide explains how the documentation is structured, why it is organised this way, and where to find what you need. Read this before diving into any specific document.
 
 ---
@@ -102,10 +108,10 @@ All diagrams use technology-neutral labels. Render using any PlantUML renderer o
 ```
 04-diagrams/
 ├── overview/       system-context, doc-relationships, use-cases
-├── workflows/      baseline-to-srs, srs-change-detected
+├── workflows/      baseline-to-srs-activity, srs-monitoring-activity
 ├── architecture/   functional-components, c4-context, c4-container
-├── sequences/      change-detection, baseline-approved, reclassification
-└── states/         finding-lifecycle
+├── sequences/      baseline-approved-sequence, srs-change-detected-sequence
+└── states/         finding-lifecycle-state
 ```
 
 ---

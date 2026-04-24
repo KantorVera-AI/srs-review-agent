@@ -4,7 +4,7 @@ skinparam rectangle {
   BackgroundColor #F3E5F5
 }
 
-title Document Relationships (from Traceability Tables)
+title Document Relationships
 
 package "🟦 Static Baseline" {
   [Intended Use]
@@ -21,30 +21,41 @@ package "🟨 Dynamic Upstream" {
 
 rectangle "🟢 SRS\n(Central Hub)" as SRS
 
+package "Architecture" {
+  [Software Architecture\nDocument (SAD)]
+}
+
 package "Downstream" {
-  [Architecture]
   [V&V Plans]
   [IFU]
   [Tech Doc]
 }
 
-[Intended Use] --> SRS : scope/claims
-[Classification] --> SRS : risk level
-[Risk File] --> SRS : controls
-[UX File] --> SRS : UI reqs
-[Cyber File] --> SRS : security
-[AI Docs] --> SRS : perf targets
+[Intended Use] --> SRS : scope / claims
+[Classification] --> SRS : risk level / IMDRF category
+[Risk File] --> SRS : risk controls
+[UX File] --> SRS : UI requirements
+[Cyber File] --> SRS : security requirements
+[AI Docs] --> SRS : performance targets
+[Clinical Eval] --> SRS : clinical claims
+
+[Software Architecture\nDocument (SAD)] --> SRS : software item safety class
+SRS --> [Software Architecture\nDocument (SAD)] : primary driver
 
 SRS ..> [Risk File] : 🔴 safety changes
 SRS ..> [UX File] : 🔴 UI changes
-SRS ..> [Cyber File] : 🔴 security
-SRS ..> [AI Docs] : 🔴 algo changes
-SRS --> [Architecture] : primary driver
+SRS ..> [Cyber File] : 🔴 security changes
+SRS ..> [AI Docs] : 🔴 algorithm changes
 SRS --> [V&V Plans] : 🔴 test cases
+SRS --> [IFU] : user-facing changes
+SRS --> [Tech Doc] : milestone updates
 
 note right of SRS
   SRS Review Agent monitors
-  changes here → notifies owners
+  changes here → classifies →
+  notifies owners based on
+  IMDRF category and
+  software item safety class
 end note
 
 @enduml

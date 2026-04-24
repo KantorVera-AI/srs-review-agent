@@ -17,5 +17,4 @@ Class -> Res: resolve impacted docs
 Res -> Owner: send findings
 Owner -> TaskSystem: acknowledge
 note over Owner, TaskSystem: Owner reviews\nusing traceability tables
-
-@
+@enduml

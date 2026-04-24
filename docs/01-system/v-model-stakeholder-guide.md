@@ -1,5 +1,11 @@
 # V-Model & Stakeholder Guide for SRS Review Agent
 
+**Status:** Deprecated
+**Owner:** Product Management  
+**Audience:** Regulatory consultants, advisors, new team members
+
+
+
 ## Understanding the V-Model in Medical Device Software Development
 
 The V-Model is a software development lifecycle framework widely adopted in regulated industries like medical devices. It emphasizes a structured approach where each development phase has a corresponding verification/validation phase.

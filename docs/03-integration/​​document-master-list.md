@@ -1,5 +1,11 @@
 # Table 1: Document Master List
 
+**Status:** Working draft  
+**Owner:** Product Management  
+**Audience:** AI Architect, PM
+
+
+
 ## 🎨 Color Legend
 
 🟦 **Static/Baseline** (Very Infrequent)

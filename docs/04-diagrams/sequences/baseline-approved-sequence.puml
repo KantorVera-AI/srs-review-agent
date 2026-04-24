@@ -23,7 +23,8 @@ alt Owner rejects
 end
 
 note over Parser
-  Uses Table 1 "Impacts SRS?"
+  Uses document master list
+  "Impacts SRS?" column
 end note
 
 @enduml

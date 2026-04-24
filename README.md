@@ -1,5 +1,11 @@
 # SRS Review Agent
 
+**Status:** Stable
+**Owner:** Product Management
+**Audience:** All stakeholders
+
+---
+
 AI decision-support agent that analyses Software Requirements Specifications (SRS) and related controlled documents against regulatory standards, generates citation-backed findings, and routes them to the appropriate document owners for human review and disposition.
 
 **Decision-support only.** The agent proposes findings. Humans decide. No autonomous regulatory actions.
@@ -21,7 +27,7 @@ AI decision-support agent that analyses Software Requirements Specifications (SR
 
 ## Applicable regulatory frameworks
 
-This agent is designed to support both **EU MDR** (EU Medical Device Regulation 2017/745, harmonised standards IEC 62304 and ISO 14971) and **US FDA** (21 CFR Part 820 / QMSR, FDA software and AI/ML guidance) workflows. Where requirements differ between jurisdictions, both are addressed explicitly. Where they are equivalent, jurisdiction-neutral language is used.
+This agent supports both **EU MDR** (EU Medical Device Regulation 2017/745, harmonised standards IEC 62304 and ISO 14971) and **US FDA** (21 CFR Part 820 / QMSR, FDA software and AI/ML guidance) workflows. Where requirements differ between jurisdictions, both are addressed explicitly. Where they are equivalent, jurisdiction-neutral language is used.
 
 The agent is **product-agnostic** — it works across device types and classification tiers. Its outputs are **classification-dependent** — what it flags, how deeply it analyses, who it notifies, and what evidence it requires all vary based on the product's IMDRF significance category (I through IV) and the IEC 62304 safety class of each software item being reviewed.
 
@@ -29,15 +35,15 @@ The agent is **product-agnostic** — it works across device types and classific
 
 ## Who reads what
 
-| If you are | Start here |
-|---|---|
-| New to the project — any role | This file, then [`docs/README.md`](docs/README.md) |
-| Deciding what to build and when | [`docs/02-roi/master-overview.md`](docs/02-roi/master-overview.md) |
-| Building the system (AI Architect) | [`docs/01-system/prd.md`](docs/01-system/prd.md) → [`docs/03-integration/metadata-spec.md`](docs/03-integration/metadata-spec.md) |
-| Reviewing regulatory scope (RA/QA) | [`docs/00-overview/compliance-landscape.md`](docs/00-overview/compliance-landscape.md) → [`docs/01-system/stakeholders.md`](docs/01-system/stakeholders.md) |
-| Integrating with existing systems | [`docs/03-integration/operating-model.md`](docs/03-integration/operating-model.md) → [`docs/03-integration/system-categories.md`](docs/03-integration/system-categories.md) |
-| Deploying and configuring the agent | [`docs/03-integration/ui-scope.md`](docs/03-integration/ui-scope.md) |
-| Challenging a prioritisation decision | [`docs/02-roi/assumptions.md`](docs/02-roi/assumptions.md) |
+| If you are                            | Start here                                                                                                                                                                 |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| New to the project — any role        | This file, then [`docs/README.md`](docs/README.md)                                                                                                                           |
+| Deciding what to build and when       | [`docs/02-roi/master-overview.md`](docs/02-roi/master-overview.md)                                                                                                          |
+| Building the system (AI Architect)    | [`docs/01-system/prd.md`](docs/01-system/prd.md) → [`docs/03-integration/metadata-spec.md`](docs/03-integration/metadata-spec.md)                                           |
+| Reviewing regulatory scope (RA/QA)    | [`docs/00-overview/compliance-landscape.md`](docs/00-overview/compliance-landscape.md) → [`docs/01-system/stakeholders.md`](docs/01-system/stakeholders.md)                 |
+| Integrating with existing systems     | [`docs/03-integration/operating-model.md`](docs/03-integration/operating-model.md) → [`docs/03-integration/system-categories.md`](docs/03-integration/system-categories.md) |
+| Deploying and configuring the agent   | [`docs/03-integration/ui-scope.md`](docs/03-integration/ui-scope.md)                                                                                                        |
+| Challenging a prioritisation decision | [`docs/02-roi/assumptions.md`](docs/02-roi/assumptions.md)                                                                                                                  |
 
 ---
 
@@ -77,23 +83,6 @@ srs-review-agent/
 
 ---
 
-## Development setup
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Load the synthetic test corpus
-python src/analysis/ingest.py --corpus data/raw/
-
-# Run the evaluation suite
-python src/analysis/eval.py --corpus data/raw/ --output experiments/eval01/
-```
-
-The agent requires two metadata fields to be present in the corpus before it can produce classification-calibrated outputs: the IMDRF significance category of the device under review, and the IEC 62304 safety class of each software item referenced in the SRS. See `docs/03-integration/metadata-spec.md` for the tagging specification.
-
----
-
 ## Core principles
 
 1. **Non-binding** — all findings are proposals. Humans accept, reject, defer, or escalate.
@@ -104,8 +93,6 @@ The agent requires two metadata fields to be present in the corpus before it can
 
 ---
 
-## Project status
+## Current status
 
-Current phase: **MVP development** — UC1 (SRS monitoring and change classification) and UC3 (risk traceability check).
-
-See `docs/02-roi/roadmap.md` for the full release plan.
+See [roadmap](docs/02-roi/roadmap.md).

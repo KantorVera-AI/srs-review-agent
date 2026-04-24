@@ -1,5 +1,11 @@
 # Stakeholder Workflows
 
+**Status:** Deprecated  
+**Owner:** Product Management  
+**Audience:** All stakeholders
+
+
+
 ## Handling Agent Findings (All)
 1. Review proposed finding + citation
 2. **Disposition**: Accept / Reject / Defer / Clarify / Route / Escalate / Out of scope

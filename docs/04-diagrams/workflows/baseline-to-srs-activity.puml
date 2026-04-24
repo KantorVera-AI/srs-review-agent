@@ -16,7 +16,7 @@ start
 :Review suggestions;
 if (Accept?) then (yes)
   :Update SRS;
-  :Commit to Git;
+  :Commit to version control;
 else (no)
   :Reject with reason;
 endif

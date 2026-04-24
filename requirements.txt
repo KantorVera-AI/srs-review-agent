@@ -1,3 +1,5 @@
+# Dependencies for the SRS Review Agent analysis pipeline.
+# Versions to be pinned by the AI Architect after validation.
 langchain==0.1.0
 faiss-cpu==1.8.0
 sentence-transformers==2.3.1

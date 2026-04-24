@@ -1,9 +1,10 @@
 # SRS Review Agent — Use Case ROI & Prioritization
 
-**Document status:** Working draft v2.0
+**Status:** Deprecated
 **Owner:** Product Management
-**Last updated:** March 2026
-**Audience:** PM, AI Architect, regulatory/quality consultants, advisors, future team members
+**Audience:** PM, AI Architect, regulatory/quality consultants, advisors
+
+> **Note:** This is the full v2 ROI analysis. The canonical v3 documents are [`master-overview.md`](master-overview.md), [`assumptions.md`](assumptions.md), [`mvp-specification.md`](mvp-specification.md), and [`roadmap.md`](roadmap.md). This document is retained as a detailed reference — particularly the glossary, worked scoring examples, and dual-jurisdiction benefit notes. UC7 and the IMDRF classification framework are not reflected here.
 
 ---
 
