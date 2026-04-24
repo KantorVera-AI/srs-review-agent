@@ -7,26 +7,24 @@ skinparam state {
 
 [*] --> Draft : new finding
 Draft --> Sent : notify owner
-Sent --> InReview : owner accepts
-InReview --> Accepted : approved
-InReview --> Rejected : declined
+Sent --> InReview : owner opens
+InReview --> Accept : approved
+InReview --> Reject : declined
 InReview --> Clarify : needs info
 InReview --> Route : wrong owner
 InReview --> Escalate : above review level
 InReview --> OutOfScope : outside boundary
+InReview --> Defer : cannot act now
 Clarify --> InReview : info provided
-Route --> InReview : re-assigned
+Route --> Sent : re-assigned
+Defer --> Sent : deferral expires
 Escalate --> Resolved : escalation handled
 OutOfScope --> Closed : documented
 
-Accepted --> Resolved : SRS updated
-Rejected --> Closed : reason logged
+Accept --> Resolved : action completed
+Reject --> Closed : reason logged
 Resolved --> [*]
 Closed --> [*]
 
 note bottom
-  States ensure audit trail
-  and change control
-end note
-
-@enduml
+  Sta

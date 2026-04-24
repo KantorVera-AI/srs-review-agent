@@ -57,7 +57,7 @@ For the cross-check against the threat model to produce high-quality findings, t
 |---|---|---|---|---|
 | 3 | 3 | 0.70 | 3 | 21 |
 
-*Risk savings of 3: cybersecurity gaps are a growing source of regulatory deficiencies under both FDA cybersecurity guidance (updated 2026) and EU MDR Annex I GSPR 17, but the per-finding cost avoidance is lower than risk traceability gaps. Confidence of 0.70: lower than UC1/UC3 because finding quality depends on the structure and availability of the threat model, which varies significantly by organisation. Effort of 3: requires a cybersecurity sub-check module and the OWASP/IEC corpus.*
+*Risk savings of 3: cybersecurity gaps are a growing source of regulatory deficiencies under both FDA cybersecurity guidance (2023, updated guidance anticipated 2026) and EU MDR Annex I GSPR 17, but the per-finding cost avoidance is lower than risk traceability gaps. Confidence of 0.70: lower than UC1/UC3 because finding quality depends on the structure and availability of the threat model, which varies significantly by organisation. Effort of 3: requires a cybersecurity sub-check module and the OWASP/IEC corpus.*
 
 ---
 
@@ -111,5 +111,4 @@ For the cross-check against the threat model to produce high-quality findings, t
 |---|---|---|
 | Cybersecurity activities in health software lifecycle | IEC 81001-5-1:2021 | Multiple — architecture, requirements, maintenance |
 | Security requirements for networked devices | EU MDR Annex I | GSPR 17 |
-| Cybersecurity in premarket submissions | FDA cybersecurity guidance | 2023/2026 |
-| Application security verification | OWASP ASVS | v4.0 |
+| Cybersecurity in premarket submissions | FDA cybersecurity guidance | 2023 (updated guidance anticipated 2026) |

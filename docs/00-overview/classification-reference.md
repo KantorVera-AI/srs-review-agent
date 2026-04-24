@@ -128,12 +128,12 @@ The following matrix defines how the agent's output changes across IMDRF signifi
 
 ### Finding depth by IMDRF category
 
-| IMDRF Category | Finding type | Severity threshold | Routing |
-|---|---|---|---|
-| I | Advisory | Informational or Low | SRS owner only |
-| II | Standard finding | Low to High | SRS owner + relevant document owner |
-| III | Standard finding with mandatory review | Medium to Critical | SRS owner + document owner + RA |
-| IV | Mandatory finding with escalation path | High to Critical | SRS owner + document owner + RA/PRRC + mandatory acknowledgement |
+| IMDRF Category | Finding type | Severity threshold | Routing | Escalation |
+|---|---|---|---|---|
+| I | Advisory | Informational or Low | SRS owner only | — |
+| II | Standard finding | Low to High | SRS owner + relevant document owner | — |
+| III | Standard finding with mandatory review | Medium to Critical | SRS owner + document owner + RA | On Critical findings |
+| IV | Mandatory finding | High–Critical | SRS owner + document owner + RA/PRRC mandatory | On all findings above Low |
 
 ### Finding depth by software item safety class
 
@@ -178,4 +178,4 @@ Classification tier is the single largest driver of the agent's value. The cost 
 
 For products targeting multiple markets, the cost of a missed finding at Category III or IV is effectively multiplied across the number of markets where the same gap would trigger a deficiency.
 
-The agent's Risk Savings scoring in the ROI model (`docs/02-roi/assumptions.md`) uses these cost ranges as the basis for the Risk Savings parameter. Teams with a specific market profile and submission history should adjust these figures to reflect their actual cost experience.
+The agent's Risk Savings scoring in the ROI model (`docs/02-roi/assumptions.md`) uses these cost ranges as the basis for the Risk Savings parameter. Teams with a specific market profile and submission history should adjust these figures 

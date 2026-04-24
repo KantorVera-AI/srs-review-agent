@@ -27,7 +27,4 @@ fork
 fork again
   |Document Owner|
   :Review findings;
-end fork
-
-stop
-@enduml
+e

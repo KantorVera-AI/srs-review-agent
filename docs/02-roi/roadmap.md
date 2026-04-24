@@ -40,9 +40,9 @@ UC1 — SRS monitoring and change classification
         │
         └── UC4 — Change control plan boundary check
                   (Release 3 — requires stable pipeline + guidance maturity)
-                    │
-                    └── UC6 — Inspection and submission preparation
-                              (Later — requires 6+ months of findings history)
+
+UC1, UC2, UC3, UC4, UC5, UC7 → UC6 — Inspection and submission preparation
+                  (Later — aggregates data from all previous use cases)
 ```
 
 UC1 is a prerequisite for every other use case. No other use case can function without it.
@@ -141,3 +141,4 @@ These are not in the current roadmap but have been identified as candidates for 
 | SOUP monitoring | When a SOUP component receives a vulnerability disclosure or version update, flag SRS requirements that may be affected | Requires SBOM integration and vulnerability feed — separate infrastructure |
 | Localisation cascade | When a SRS change affects user-facing text, flag all translated documentation that requires updating | Lower regulatory priority; high organisational variability |
 | Design review support | Generate a pre-review summary of open findings and traceability gaps ahead of a formal design review milestone | Close to UC6 but different audience and trigger — worth distinguishing once UC6 is built |
+                           

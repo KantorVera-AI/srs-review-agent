@@ -21,6 +21,6 @@
 | **Security Flows**  | 🟢 L           | 🟡 M           | 🟢 L           | **🔴 H** | 🟡 M           | 🟢 L           | **🔴 H** | 🟡 M           |
 | **AI/ML Behavior**  | **🔴 H** | **🔴 H** | 🟡 M           | 🟡 M           | **🔴 H** | **🔴 H** | **🔴 H** | 🟡 M           |
 | 🟣 **Reclassification trigger** | 🔴 H | 🔴 H | 🟢 L | 🟢 L | 🟡 M | 🟡 M | 🟡 M | 🟢 L |
-| **Non-Functional**  | 🟢 L           | 🟡 M           | 🟢 L           | **🔴 H** | 🟡 M           | 🟢 L           | **🔴 H** | 🟢 L           |
+| **Non-Functional**  | 🟢 L           | 🟡 M           | 🟢 L           | 🟢 L           | 🟡 M           | 🟢 L           | **🔴 H** | 🟢 L           |
 
-**Reverse Flow**: All Baseline docs → SRS suggestions (**🔴 High**)
+**Reverse Flow**: All Baseline docs → SRS suggestions (**🔴 Hi

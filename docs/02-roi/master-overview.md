@@ -51,7 +51,7 @@ Effort is in the denominator — higher effort reduces the score. The score is a
 
 | Use case | Risk savings | Impact | Confidence | Effort | Score | Phase 1 saving | Phase 2 / yr | Tier |
 |---|---|---|---|---|---|---|---|---|
-| UC3 Risk traceability | 5 | 4 | 0.85 | 2 | **85** | 20–100 h | 24–160 h | Initial release |
+| UC3 Risk traceability | 5 | 4 | 0.85 | 2 | **85** | 10–144 h | 24–160 h | Initial release |
 | UC1 SRS monitoring | 4 | 4 | 0.90 | 2 | **72** | 15–160 h | 20–120 h | Initial release |
 | UC2 Baseline → SRS | 3 | 4 | 0.75 | 3 | **30** | 24–120 h | 2–24 h | Release 2 |
 | UC7 Usability engineering | 4 | 3 | 0.75 | 3 | **30** | 6–32 h | 2–18 h | Release 2 |
@@ -67,7 +67,11 @@ Effort is in the denominator — higher effort reduces the score. The score is a
 
 **UC1 scores second** because it is the prerequisite for everything else. Its confidence score is the highest (0.90) because the test data, reference corpus, and technical approach are all defined and available.
 
-**UC7 scores equal to UC2** at 30 — both Release 2 use cases. UC7 was not in the original v2 analysis. Its Risk Savings score of 4 reflects the specific high cost of a post-summative study invalidation event, which is among the most disruptive regulatory events during initial development for UI-intensive products.
+**UC2 scores 30** — equal to UC7. Its primary value is in Phase 1, when all regulatory documents are being baselined for the first time and the SRS is being built in parallel. For a mature product in Phase 2, the per-event benefit is lower. It is placed in Release 2 because it requires a baseline intake parser for multiple document types — additional infrastructure beyond the core monitoring loop.
+
+**UC7 scores equal to UC2** at 30. Its Risk Savings score of 4 reflects the specific high cost of a post-summative study invalidation event, which is among the most disruptive regulatory events during initial development for UI-intensive products. It moves to Release 2 rather than later because it reuses UC2's baseline intake and UC3's risk cross-check infrastructure, making the incremental build effort low.
+
+**UC5 scores 21** — placed in Release 2 alongside UC2 and UC7. Cybersecurity gaps are a growing deficiency source under both FDA cybersecurity guidance and EU MDR Annex I, but the per-finding cost avoidance is lower than risk traceability gaps, and finding quality depends on the availability of a structured threat model. The lower confidence score (0.70) reflects this variability.
 
 **UC4 has Risk Savings 5 — matching UC3** — but its RICE score is 23 because of low confidence (0.60) and high effort (4). The AI/ML change control plan guidance landscape was still maturing as of early 2026. Building it before the guidance stabilises produces a checker that needs rework.
 
@@ -115,15 +119,4 @@ For dual-market EU/US products at IMDRF Category III, the expected annual value 
 ## What this model does not include
 
 This analysis does not quantify:
-- Time-to-market acceleration value — faster, more confident submissions create competitive advantage
-- Knowledge retention — institutional knowledge about which SRS changes affect which documents is currently held by individuals; the agent makes it systematic and durable
-- Onboarding cost reduction — new regulatory or quality staff can operate to a consistent standard from day one
-- Compounding multi-market effect — for products in three or more markets, avoided cost multiplies further
-
-All of these would increase the ROI figures if quantified. The model is intentionally conservative.
-
----
-
-## How to challenge these numbers
-
-Go to `assumptions.md`. Identify the parameter (Risk Savings, Impact, Confidence, or Effort) and the assumption behind it. Propose a revised value. Re-run the formula. The score will shift and the roadmap may shift with it. That is the intended behaviour — this is a working document, not a fixed plan.
+- Time-to-market acceleration value — faster, more confide

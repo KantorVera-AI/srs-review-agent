@@ -43,19 +43,4 @@ package "Downstream" {
 SRS --> [Software Architecture\nDocument (SAD)] : primary driver
 
 SRS ..> [Risk File] : 🔴 safety changes
-SRS ..> [UX File] : 🔴 UI changes
-SRS ..> [Cyber File] : 🔴 security changes
-SRS ..> [AI Docs] : 🔴 algorithm changes
-SRS --> [V&V Plans] : 🔴 test cases
-SRS --> [IFU] : user-facing changes
-SRS --> [Tech Doc] : milestone updates
-
-note right of SRS
-  SRS Review Agent monitors
-  changes here → classifies →
-  notifies owners based on
-  IMDRF category and
-  software item safety class
-end note
-
-@enduml
+SRS ..> [UX File] : 🔴 U

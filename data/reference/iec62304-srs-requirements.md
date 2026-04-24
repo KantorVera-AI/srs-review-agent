@@ -1,10 +1,17 @@
+**Status:** Working draft
+**Owner:** Product Management
+**Audience:** AI Architect
+
+---
+
 # IEC 62304 SRS Requirements Checklist
 
-## IEC62304-4.3 Software Requirements (SRS)
-IEC62304-4.3.1: SRS shall describe functions + interfaces
-IEC62304-4.3.2: Requirements shall be verifiable (testable)
-IEC62304-4.3.3: Requirements shall be traceable (risk, design)
+Synthetic checklist of IEC 62304:2006+A1:2015 requirements applicable to Software Requirements Specifications. Used as a reference corpus for UC1 and UC3 finding generation.
 
-## IEC62304-5.2 Risk Management
-IEC62304-5.2.1: SRS shall address risk control measures
-IEC62304-5.2.2: Traceability hazard → SRS requirement
+---
+
+## Section 4 — General requirements
+
+| Clause | Requirement | Safety class |
+|---|---|---|
+| 4.3 | 

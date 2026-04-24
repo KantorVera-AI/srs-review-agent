@@ -181,8 +181,8 @@ These are order-of-magnitude estimates calibrated against industry benchmarks, n
 
 After the initial release: update Confidence scores for UC2, UC4, UC5, and UC7 based on actual UC1/UC3 finding acceptance rates.
 
-After Release 2: update UC4's Effort score based on AI Architect's assessment of change control plan document variability encountered during UC5 implementation.
+After Release 2: update UC4's Effort score based on AI Architect's assessment of structured document parsing complexity encountered during UC2 implementation (baseline intake parser).
 
 After a major regulatory guidance update (FDA AI/ML guidance finalisation; EU AI Act Article 83 implementing acts): review Risk Savings scores for UC4 and UC7.
 
-After 6 months of production data: replace Phase 2 time-saving estimates with actuals from real finding events.
+After 6 months of production data: replace Phase 2 time-saving estimates with actuals fro

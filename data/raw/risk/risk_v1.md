@@ -1,9 +1,9 @@
-# Risk Management File v1.0
+**Status:** Working draft
+**Owner:** Product Management
+**Audience:** AI Architect
 
-## H-001: Data corruption
-**Hazardous situation**: Disk failure
-**Harm**: Incorrect treatment
-**Risk control RC-001**: Encrypt + backup → SRS-005
+---
 
-## H-002: Unauthorized access
-**Risk control RC-002**: Auth + audit → SRS-001, SRS-010
+# Risk Model v1 (Synthetic Test Data)
+
+This is the synthetic risk management file used as test data for UC3 (risk traceability check). It is illustrative only — it does not rep

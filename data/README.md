@@ -1,12 +1,13 @@
-# Data Policy & Structure
+# Data Policy and Structure
 
-## Rules (no exceptions)
-- ❌ NO PHI/PII, client SRS, hospital data, confidential docs
-- ✅ ONLY synthetic SRS/risk files + public IEC 62304/MDR templates
+**Owner:** AI Architect  
+**Audience:** AI Architect, PM, any contributor adding files to this folder
 
-## Folder roles
-- `raw/` → original .md files (SRS v1/v2, risk v1)
-- `processed/` → indexed JSON/chunks (regenerate from raw/)
-- `reference/` → IEC 62304 checklists, MDR mappings
+---
 
-Regenerate: `python src/analysis/ingest.py`
+## Non-negotiable rules
+
+This repository is a public working document. Every file in `data/` must comply with the following rules without exception:
+
+- No PHI or PII of any kind — no patient data, no clinical records, no personal identifiers
+- No confidential client documents

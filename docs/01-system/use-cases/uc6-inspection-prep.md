@@ -7,7 +7,7 @@
 # UC6 — Regulatory inspection and submission preparation
 
 **Release tier:** Later (requires 6+ months of production findings history)
-**Depends on:** UC1, UC2, UC3, UC5, UC7 — all previous use cases as data sources
+**Depends on:** UC1, UC2, UC3, UC4, UC5, UC7 — all previous use cases as data sources
 **Required by:** Nothing downstream
 
 ---
@@ -115,4 +115,4 @@ The package is a summary for preparation purposes — it is not the technical fi
 | Technical documentation | EU MDR | Annex II and Annex III |
 | Design history file | FDA 21 CFR 820 | 820.30 and 820.181 |
 | Post-market surveillance records | EU MDR | Article 83–86 |
-| Quality records retention | FDA 21 CFR 820 | 820.180 |
+| Quality records retention | FDA 21 CFR 820 | 820.1

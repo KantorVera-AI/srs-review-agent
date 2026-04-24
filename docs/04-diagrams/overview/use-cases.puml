@@ -8,36 +8,24 @@ skinparam usecase {
   BorderColor #1976D2
 }
 
-title Use Cases - SRS Review Agent
+title Functional Workflow — SRS Review Agent
+
+note top
+  This diagram shows functional workflow steps.
+  For the ROI-based use case taxonomy (UC1–UC7)
+  see docs/01-system/use-cases/
+end note
 
 actor "🟦 Regulatory Lead" as Reg
 actor "🟨 Document Owner\n(Risk/UX/Cyber/AI)" as DocOwner
 actor "🟢 SRS Owner" as SRSOwner
 actor "QA/Reg" as QA
+actor "🟦 RA/PRRC" as RA
 
 rectangle "SRS Review Agent" {
-  usecase (Submit baseline docs) as UC1
-  usecase (Review SRS suggestions) as UC2
-  usecase (Monitor SRS changes) as UC3
-  usecase (Classify SRS change) as UC4
-  usecase (Generate findings) as UC5
-  usecase (Review findings) as UC6
-  usecase (Close findings) as UC7
-}
-
-Reg ..> UC1
-DocOwner ..> UC1
-SRSOwner ..> UC2
-SRSOwner ..> UC3
-UC3 ..> UC4 : <<include>>
-UC4 ..> UC5 : <<include>>
-UC5 ..> UC6
-DocOwner ..> UC6
-QA ..> UC7
-
-note bottom
-  Baseline → SRS suggestions
-  SRS changes → owner findings
-end note
-
-@enduml
+  usecase (Submit baseline\ndocument) as SubmitBaseline
+  usecase (Review SRS\nsuggestions) as ReviewSuggestions
+  usecase (Monitor document\nchange events) as MonitorChanges
+  usecase (Classify change\ntype and impact) as ClassifyChange
+  usecase (Generate citation-\nbacked findings) as GenerateFindings
+  usecase (Review and\ndi

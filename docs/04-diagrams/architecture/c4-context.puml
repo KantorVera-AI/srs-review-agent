@@ -35,8 +35,4 @@ Router --> Notify : alerts
 Router --> DocOwner : findings
 SRSOwner <--> Parser : suggestions
 
-note right of Resolver
-  Tables 1,2,3 traceability
-end note
-
-@enduml
+note right 

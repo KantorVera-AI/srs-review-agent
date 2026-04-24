@@ -8,7 +8,7 @@
 
 **Release tier:** Initial release
 **Depends on:** UC1 (change classification)
-**Required by:** UC4 (change control plan check uses the same traceability infrastructure)
+**Required by:** UC4 (change control plan check uses the same traceability infrastructure), UC6 (inspection preparation aggregates traceability data)
 
 ---
 
@@ -72,7 +72,7 @@ Finding format: hazard identifier, risk control identifier, expected SRS require
 |---|---|
 | Typical events | All safety-relevant SRS changes during development (typically 15–30% of all SRS events) |
 | Time saved per event | 2–6 hours of manual risk file cross-check |
-| Total time saving | 20–100 hours = 2,600–13,000€ |
+| Total time saving | 10–144 hours = 1,300–18,720€ |
 | Regulatory cost avoided | 15–40k€ — broken traceability at first submission is among the most common deficiency causes in both EU and US markets |
 
 ### Phase 2 — Ongoing maintenance
@@ -129,4 +129,4 @@ Before marking UC3 complete in the initial release:
 - [ ] Ambiguous link flagged correctly when a requirement scope changes but the link record is not updated
 - [ ] Dual-direction check works: agent detects both RC→SRS and SRS→RC gaps
 - [ ] Reclassification trigger fires when a change removes isolation from a software item linked to a Class C requirement
-- [ ] Output depth visibly differs between Category I and Category IV products for the same gap type
+- [ ] Output depth visibly differs between
