@@ -75,7 +75,7 @@ For the full ROI-based use case taxonomy (UC1–UC7), see `02-roi/master-overvie
 | Usability / HF Specialist | Review usability and use error findings |
 | Clinical Affairs | Review clinical performance claim changes |
 
-All stakeholders follow the disposition workflow defined in `01-system/stakeholders.md`.
+All stakeholders follow the disposition workflow defined in `01-system/3-stakeholders.md`.
 
 ---
 
@@ -89,9 +89,9 @@ All stakeholders follow the disposition workflow defined in `01-system/stakehold
 
 **FR4:** Deliver findings to the review interface and log all dispositions with rationale
 
-**FR5:** Read IMDRF significance category and IEC 62304 software item safety class metadata and apply output calibration per `01-system/output-calibration.md`
+**FR5:** Read IMDRF significance category and IEC 62304 software item safety class metadata and apply output calibration per `01-system/4-output-calibration.md`
 
-**FR6:** Flag potential device-level and software item-level reclassification triggers per `01-system/output-calibration.md`
+**FR6:** Flag potential device-level and software item-level reclassification triggers per `01-system/4-output-calibration.md`
 
 ---
 
@@ -118,4 +118,4 @@ All stakeholders follow the disposition workflow defined in `01-system/stakehold
 
 ---
 
-See [risk model](../02-roi/risk-model.md) · [stakeholders](stakeholders.md) · [output calibration](output-calibration.md)
+See [risk model](../02-roi/7-risk-model.md) · [stakeholders](3-stakeholders.md) · [output calibration](4-output-calibration.md)

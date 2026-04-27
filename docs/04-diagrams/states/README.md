@@ -8,6 +8,6 @@
 
 | File | Description |
 |---|---|
-| `finding-lifecycle-state.puml` | Complete finding state machine — Draft through Closed, including Clarify, Route, Escalate, and Out of scope states |
+| `1-finding-lifecycle-state.puml` | Complete finding state machine — Draft through Closed, including Clarify, Route, Escalate, and Out of scope states |
 
-See `docs/01-system/finding-lifecycle.md` for the full specification behind this diagram.
+See `docs/01-system/5-finding-lifecycle.md` for the full specification behind this diagram.

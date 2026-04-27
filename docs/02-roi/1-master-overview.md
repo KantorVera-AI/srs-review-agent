@@ -92,7 +92,7 @@ The agent's outputs are classification-dependent. The same use case produces dif
 
 Software item safety class adds a second dimension. A Class C requirement in a Category II product receives fuller citation depth and stricter evidence requirements than a Class A requirement in the same product.
 
-When both inputs are present, the more stringent calibration applies per dimension independently. See `output-calibration.md` for the full matrix.
+When both inputs are present, the more stringent calibration applies per dimension independently. See `../01-system/4-output-calibration.md` for the full matrix.
 
 ---
 

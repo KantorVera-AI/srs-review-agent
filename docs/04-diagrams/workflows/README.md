@@ -8,5 +8,5 @@
 
 | File | Description |
 |---|---|
-| `baseline-to-srs-activity.puml` | Activity diagram for the baseline document to SRS suggestions workflow (UC2) |
-| `srs-monitoring-activity.puml` | Activity diagram for the SRS monitoring and change classification workflow (UC1) |
+| `2-baseline-to-srs-activity.puml` | Activity diagram for the baseline document to SRS suggestions workflow (UC2) |
+| `1-srs-monitoring-activity.puml` | Activity diagram for the SRS monitoring and change classification workflow (UC1) |

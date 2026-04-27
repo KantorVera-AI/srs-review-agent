@@ -146,7 +146,7 @@ When the agent's outputs from UC1, UC3, and UC4 are combined, the team can estim
 
 This is most impactful for UC4 (AI/ML changes that may exceed PCCP boundaries) but applies to any change that triggers multiple high-severity findings across different document areas simultaneously.
 
-The economic trade-off output is described in `finding-lifecycle.md` as a special finding section. It does not change the disposition options but provides the information needed to make a rational scope decision.
+The economic trade-off output is described in `../01-system/5-finding-lifecycle.md` as a special finding section. It does not change the disposition options but provides the information needed to make a rational scope decision.
 
 ---
 

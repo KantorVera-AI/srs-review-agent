@@ -29,7 +29,7 @@ These are not optional fields that can be added later. They should be resolved b
 
 ### Definition
 
-The IMDRF SaMD significance category (I, II, III, or IV) of the device under analysis, based on the intersection of the healthcare situation severity and the significance of the information the software provides. See `docs/00-overview/classification-reference.md` for the full framework and national market mappings.
+The IMDRF SaMD significance category (I, II, III, or IV) of the device under analysis, based on the intersection of the healthcare situation severity and the significance of the information the software provides. See `docs/00-overview/2-classification-reference.md` for the full framework and national market mappings.
 
 ### Scope
 
@@ -81,7 +81,7 @@ For products targeting multiple regulatory markets, use the most stringent appli
 
 ### Definition
 
-The IEC 62304 safety class (A, B, or C) assigned to each software item in the product's software architecture. See `docs/00-overview/classification-reference.md` for the full safety class definitions and the isolation argument requirements.
+The IEC 62304 safety class (A, B, or C) assigned to each software item in the product's software architecture. See `docs/00-overview/2-classification-reference.md` for the full safety class definitions and the isolation argument requirements.
 
 ### Scope
 

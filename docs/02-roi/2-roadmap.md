@@ -99,7 +99,7 @@ The roadmap is not determined by RICE scores alone. Five dimensions affect the c
 - [ ] All six change type classifiers (clinical, risk/safety, UI/workflow, security, AI/ML, non-functional) achieve ≥85% precision on the evaluation test scenarios
 - [ ] IMDRF Category I and Category IV produce visibly different output depth for the same change type
 - [ ] Reclassification trigger fires correctly on evaluation scenarios 12 and 13
-- [ ] Missing metadata fallback behaviour matches specification in `output-calibration.md`
+- [ ] Missing metadata fallback behaviour matches specification in `../01-system/4-output-calibration.md`
 - [ ] Finding routing delivers to the correct owner role in all test scenarios
 - [ ] Audit log is append-only and exports correctly to a structured file format
 

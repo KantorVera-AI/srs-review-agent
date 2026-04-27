@@ -38,7 +38,7 @@ For teams without an automated integration, the trigger can be submitted manuall
    - **Security/data flows** — changes to interfaces, authentication, encryption, or data transmission
    - **AI/ML behaviour** — changes to algorithm logic, model inputs/outputs, or performance specifications
    - **Non-functional** — changes to performance, availability, logging, or audit trail requirements
-3. Checks whether the change may trigger a device-level IMDRF category reclassification or a software item safety class reclassification (see `docs/01-system/output-calibration.md`)
+3. Checks whether the change may trigger a device-level IMDRF category reclassification or a software item safety class reclassification (see `docs/01-system/4-4-output-calibration.md`)
 4. Generates findings calibrated to the IMDRF category and software item safety class of the affected requirements
 5. Routes findings to the document owners responsible for the affected controlled documents
 
@@ -121,4 +121,4 @@ Before marking UC1 complete in the initial release:
 - [ ] Reclassification trigger detection fires correctly on the isolation-removal test scenario in `data/raw/`
 - [ ] Findings are routed to the correct owner role in all test scenarios
 - [ ] IMDRF Category I and Category IV produce visibly different output depth for the same change type
-- [ ] Missing metadata fallback behaviour matches specification in `output-calibration.md`
+- [ ] Missing metadata fallback behaviour matches specification in `4-output-calibration.md`

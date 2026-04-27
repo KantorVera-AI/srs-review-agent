@@ -158,7 +158,7 @@ See `docs/03-integration/system-categories.md` for data contracts per system cat
 
 ## Validation criteria for initial release sign-off
 
-Before the initial release is considered complete, the following criteria must all be satisfied. These are drawn from `use-cases/uc1-srs-monitoring.md` and `use-cases/uc3-risk-traceability.md`.
+Before the initial release is considered complete, the following criteria must all be satisfied. These are drawn from `use-cases/1-uc1-srs-monitoring.md` and `use-cases/2-uc3-risk-traceability.md`.
 
 **UC1:**
 - [ ] Change classifier achieves ≥85% precision on the synthetic SRS v1→v2 delta test corpus
@@ -166,7 +166,7 @@ Before the initial release is considered complete, the following criteria must a
 - [ ] Reclassification trigger fires correctly on evaluation scenarios 12 and 13
 - [ ] Findings routed to the correct owner role in all test scenarios
 - [ ] Category I and Category IV produce visibly different output depth for the same change type
-- [ ] Missing metadata fallback behaviour matches `output-calibration.md` specification
+- [ ] Missing metadata fallback behaviour matches `../01-system/4-output-calibration.md` specification
 
 **UC3:**
 - [ ] Missing risk control link detected on the RC-001 → SRS-005 test scenario
@@ -179,5 +179,5 @@ Before the initial release is considered complete, the following criteria must a
 **Cross-cutting:**
 - [ ] Audit log is append-only and exports correctly to a structured file
 - [ ] All findings in the evaluation set are delivered within 5 minutes of trigger
-- [ ] Finding identifier format matches `F-{YYYYMMDD}-{SEQUENCE}` specification in `finding-lifecycle.md`
+- [ ] Finding identifier format matches `F-{YYYYMMDD}-{SEQUENCE}` specification in `../01-system/5-finding-lifecycle.md`
 - [ ] Zero findings generated that contain risk acceptability decisions or autonomous regulatory conclusions

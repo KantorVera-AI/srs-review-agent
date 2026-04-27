@@ -31,13 +31,13 @@ Diagrams live in `04-diagrams/` and are referenced by documents across all four 
 
 **What it contains:**
 
-`compliance-landscape.md` — The V-model, the SaMD document ecosystem, the standards corpus the agent references, and the design control framework the agent supports.
+`1-compliance-landscape.md` — The V-model, the SaMD document ecosystem, the standards corpus the agent references, and the design control framework the agent supports.
 
-`classification-reference.md` — The IMDRF SaMD significance framework (Categories I–IV) as the jurisdiction-neutral classification spine, with mappings to EU MDR device classes, FDA device classes, and IEC 62304 software item safety classes (A, B, C). Also covers Health Canada, TGA, and PMDA.
+`2-classification-reference.md` — The IMDRF SaMD significance framework (Categories I–IV) as the jurisdiction-neutral classification spine, with mappings to EU MDR device classes, FDA device classes, and IEC 62304 software item safety classes (A, B, C). Also covers Health Canada, TGA, and PMDA.
 
-`ai-legislation.md` — EU AI Act obligations for AI-enabled SaMD, FDA AI/ML framework, ISO/IEC 42001, and the anticipated ISO 14971 amendment on AI-specific hazards.
+`3-ai-legislation.md` — EU AI Act obligations for AI-enabled SaMD, FDA AI/ML framework, ISO/IEC 42001, and the anticipated ISO 14971 amendment on AI-specific hazards.
 
-**Reading order:** `compliance-landscape.md` → `classification-reference.md` → `ai-legislation.md` (if AI-enabled product).
+**Reading order:** `1-compliance-landscape.md` → `2-classification-reference.md` → `3-ai-legislation.md` (if AI-enabled product).
 
 ---
 
@@ -47,19 +47,19 @@ Diagrams live in `04-diagrams/` and are referenced by documents across all four 
 
 **What it contains:**
 
-`vision.md` — One-page product vision.
+`1-vision.md` — One-page product vision.
 
-`prd.md` — Product requirements. Technology-neutral. Use case taxonomy UC1–UC7 defined here — canonical naming across all documentation.
+`2-prd.md` — Product requirements. Technology-neutral. Use case taxonomy UC1–UC7 defined here — canonical naming across all documentation.
 
 `use-cases/` — One file per use case (UC1–UC7). Each contains: description, trigger, output owners, RICE score, Phase 1 and Phase 2 benefit, assumptions, dependencies, release tier.
 
-`stakeholders.md` — All stakeholder roles, finding disposition workflow, severity level definitions.
+`3-stakeholders.md` — All stakeholder roles, finding disposition workflow, severity level definitions.
 
-`finding-lifecycle.md` — Finding states, valid transitions, audit trail requirements, reclassification special handling.
+`5-finding-lifecycle.md` — Finding states, valid transitions, audit trail requirements, reclassification special handling.
 
-`output-calibration.md` — How agent output changes by IMDRF category and IEC 62304 software item safety class. Defines the two-way reclassification trigger logic and the IEC 62366-1 decomposition exception.
+`4-output-calibration.md` — How agent output changes by IMDRF category and IEC 62304 software item safety class. Defines the two-way reclassification trigger logic and the IEC 62366-1 decomposition exception.
 
-**Reading order:** `vision.md` → `prd.md` → relevant use case files → `stakeholders.md` → `output-calibration.md`.
+**Reading order:** `1-vision.md` → `2-prd.md` → relevant use case files → `3-stakeholders.md` → `4-output-calibration.md`.
 
 ---
 

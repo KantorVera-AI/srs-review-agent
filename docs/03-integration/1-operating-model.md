@@ -83,7 +83,7 @@ Five output types. Each has a defined format, target, and owner.
 
 **Delivery guarantee:** Every output carries a finding ID, source document binding (document ID, version, sync timestamp), standard clause citation, and an action link. A finding that cannot be delivered is retried and escalated to the administrator if delivery fails after three attempts.
 
-**Reclassification flag special handling:** When the agent detects a potential device-level IMDRF category change or software item safety class change, the reclassification flag is the first finding delivered. No other findings from the same analysis run are surfaced to the document owner until the reclassification flag has received a mandatory acknowledgement. See `docs/01-system/finding-lifecycle.md`.
+**Reclassification flag special handling:** When the agent detects a potential device-level IMDRF category change or software item safety class change, the reclassification flag is the first finding delivered. No other findings from the same analysis run are surfaced to the document owner until the reclassification flag has received a mandatory acknowledgement. See `docs/01-system/5-finding-lifecycle.md`.
 
 ---
 
