@@ -1,42 +1,84 @@
-@startuml
-title SRS Review Agent - System Context (UML)
+@startuml 1-c4-context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
-skinparam component {
-  BackgroundColor #E8F5E8
-}
-skinparam actor {
-  BackgroundColor #FFF3E0
-}
+title SRS Review Agent — System Context
 
-actor "🟦 Regulatory Lead" as Reg
-actor "🟨 Document Owners" as DocOwner
-actor "🟢 SRS Owner" as SRSOwner
+' ============================================================================
+' Stakeholders / Actors (per docs/01-system/3-stakeholders.md)
+' ============================================================================
 
-package "SRS Review Agent System" {
-  component "SRS Monitor" as Monitor
-  component "SRS Parser" as Parser  
-  component "Trace Resolver" as Resolver
-  component "Findings Service" as Findings
-  component "Notification Router" as Router
-}
+Person(req_eng,    "Requirements Engineer",        "SRS owner — dispositions findings, updates SRS")
+Person(risk_eng,   "Risk / Safety Engineer",       "Verifies hazard control traceability")
+Person(sw_arch,    "Software Architect",           "Owns SAD + software item registry (safety class)")
+Person(cyber_eng,  "Cybersecurity Engineer",       "Reviews security requirement gaps")
+Person(usab_spec,  "Usability / HF Specialist",    "Submits formative/summative results")
+Person(clin_aff,   "Clinical Affairs",             "Reviews clinical performance changes")
+Person(ra_prrc,    "Regulatory Affairs / PRRC",    "Reviews Critical findings, classification, submissions")
+Person(qa_val,     "QA / Validation Engineer",     "Verifies testability and test coverage")
+Person(ai_eng,     "AI Engineer",                  "Reviews AI/ML behaviour findings + PCCP boundaries")
+Person(sys_admin,  "System Administrator",         "Operates the agent, handles trigger/sync failures")
 
-cloud "Document Repository /\nVersion Control" as DocRepo
-database "Document System" as DMS
-rectangle "Workflow /\nNotification System" as Notify
+' ============================================================================
+' The System
+' ============================================================================
 
-Reg --> Resolver : submit baselines
-DocRepo --> Monitor : events
-Monitor --> Parser : diffs
-Parser --> Resolver : classify
-Resolver <--> DMS : references
-Resolver --> Findings : impacted docs
-Findings --> Router : findings
-Router --> Notify : alerts
-Router --> DocOwner : findings
-SRSOwner <--> Parser : suggestions
+System(agent, "SRS Review Agent", "Compliance intelligence layer — monitors SRS and risk files, classifies changes against IEC 62304 / ISO 14971 / OWASP / IEC 81001-5-1 / EU MDR / FDA 21 CFR 820, generates calibrated, citation-backed findings. Non-binding decision support — never the system of record.")
 
-note right of Resolver
-  Tables 1,2,3 traceability
-end note
+' ============================================================================
+' External Systems — by category (technology-neutral labels per
+' docs/03-integration/2-system-categories.md)
+' ============================================================================
+
+System_Ext(dms,      "Document & Quality Management System",         "Authoritative document store, approval states, revision history (Cat. 1)")
+System_Ext(alm,      "Requirements & Traceability Management System","SRS, software item links, traceability table (Cat. 2)")
+System_Ext(risk_sys, "Risk Management System",                       "Hazards, risk controls, RC↔SRS traceability (Cat. 3)")
+System_Ext(sad,      "Software Architecture Documentation",          "Item decomposition, safety classes, isolation arguments (Cat. 4)")
+System_Ext(sdlc,     "Software Development Lifecycle System",        "Source code, change events, CI/CD (Cat. 5)")
+System_Ext(usab_sys, "Usability & Human Factors Documentation",      "Formative + summative studies, use error logs (Cat. 6)")
+System_Ext(cyber_sys,"Cybersecurity & Threat Management System",     "Threat model, SBOM, vulnerability records (Cat. 7)")
+System_Ext(workflow, "Workflow & Task Management System",            "Tasks, tickets — finding delivery target Tier 3+ (Cat. 9)")
+System_Ext(reg_sub,  "Regulatory Submission Management System",      "Submission history, deficiency letters — UC6 (Cat. 10)")
+System_Ext(llm,      "LLM Provider",                                 "Frontier hosted LLM, deterministic mode, version-pinned")
+System_Ext(stds,     "Standards Reference Sources",                  "IEC 62304, ISO 14971, OWASP ASVS, EU MDR, FDA — corpus refresh")
+
+' ============================================================================
+' Inbound: triggers + content from regulated source systems
+' Input contract: (current document version, diff against previous version)
+' ============================================================================
+
+Rel(dms,      agent, "Document state changes, baselines\n(current version + diff)", "Tier 0 / 1 / 2")
+Rel(alm,      agent, "Requirement changes, traceability links\n(current version + diff)", "Tier 0–2")
+Rel(risk_sys, agent, "Risk file changes, RC↔SRS table",     "Tier 0–1")
+Rel(sad,      agent, "Software items, safety class, isolation argument", "Tier 0–1")
+Rel(sdlc,     agent, "SRS-linked change events",            "Tier 2 webhook")
+Rel(usab_sys, agent, "Formative / summative study submissions","Tier 0 manual")
+Rel(cyber_sys,agent, "Threat model, SBOM",                  "Tier 0–1")
+Rel(reg_sub,  agent, "Submission history (on-demand, UC6)", "Tier 0–1")
+Rel(stds,     agent, "Reference corpus refresh (controlled)", "Manual / scheduled")
+
+' ============================================================================
+' Outbound: findings, dispositions, audit
+' ============================================================================
+
+Rel(agent, req_eng,   "Findings, change classifications, suggestions")
+Rel(agent, risk_eng,  "Risk traceability findings, reclassification flags")
+Rel(agent, sw_arch,   "Reclassification flags, item-level findings")
+Rel(agent, cyber_eng, "Security findings, threat coverage gaps")
+Rel(agent, usab_spec, "Use error findings, post-summative change flags")
+Rel(agent, clin_aff,  "Clinical performance change findings")
+Rel(agent, ra_prrc,   "Mandatory acknowledgements, submission impact")
+Rel(agent, qa_val,    "Verification evidence findings")
+Rel(agent, ai_eng,    "AI/ML behaviour + PCCP boundary findings")
+Rel(agent, sys_admin, "Sync / trigger failures, metadata gap escalations")
+
+Rel(agent, workflow,  "Finding tasks (Tier 3) / disposition sync-back (Tier 4)")
+
+' ============================================================================
+' LLM dependency
+' ============================================================================
+
+Rel(agent, llm, "Classification + citation generation\n(version-pinned, temperature=0)", "HTTPS")
+
+SHOW_LEGEND()
 
 @enduml

@@ -1,52 +1,139 @@
-@startuml c4-container-fixed
-!theme plain
-skinparam component {
-  BackgroundColor #E8F5E8
-  BorderColor #2E7D32
+@startuml 2-c4-container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title SRS Review Agent — Container View
+
+' ============================================================================
+' External actors (representative subset — full set in 1-c4-context.puml)
+' ============================================================================
+
+Person(reviewers,   "Document Owners",        "Requirements Eng., Risk Eng., Sw Architect,\nCybersecurity Eng., Usability Spec., Clinical Aff.,\nRA/PRRC, QA, AI Eng. — disposition findings")
+Person(sys_admin,   "System Administrator",   "Operates the agent")
+
+' ============================================================================
+' External systems (collapsed by role for clarity)
+' ============================================================================
+
+System_Ext(source_systems, "Source Systems (Categories 1–8)",        "Document & QMS, ALM, Risk, SAD, SDLC, Usability, Cybersecurity")
+System_Ext(workflow,       "Workflow & Task Management System",      "Finding delivery (Tier 3) / disposition sync-back (Tier 4)")
+System_Ext(llm,            "LLM Provider",                           "Version-pinned, deterministic mode")
+System_Ext(stds_sources,   "Standards Reference Sources",            "Controlled corpus refresh")
+
+' ============================================================================
+' The agent — container model (per architecture section 2)
+' ============================================================================
+
+System_Boundary(agent, "SRS Review Agent") {
+
+    ' Layer 1 — Triggers
+    Container(trigger_recv, "Trigger Receiver", "Service",
+        "Six trigger types: doc state change, baseline approval, SDLC change, release candidate, scheduler, manual UI submission. Queues runs, retries with backoff, escalates persistent failures.")
+
+    ' Layer 2 — Ingestion (with adapter pattern)
+    Container(ingestion, "Ingestion Layer", "Adapter Modules",
+        "Per-system-category adapters (Tier 0 manual upload → Tier 4 bidirectional sync). Normalises (current version, diff) input pair to canonical schema. ReqIF / CSV / XLSX / vendor-specific.")
+
+    ' Layer 3 — Analysis Store
+    ContainerDb(analysis_store, "Analysis Store", "Relational DB + vector + optional graph",
+        "Current canonical state (Requirement, Hazard, RiskControl, IntendedUseStatement, SoftwareItem, ClassificationClaim, TestCase, ThreatModelEntry, UseError) + traceability links + classification metadata + per-run reproducibility snapshots. Working cache — NOT a version archive.")
+
+    ' Layer 4 — Reference Corpus
+    ContainerDb(ref_corpus, "Reference Corpus", "Vector index + relational",
+        "Standards content: IEC 62304, ISO 14971, IEC 81001-5-1, IEC 62366-1, OWASP ASVS, EU MDR, EU AI Act, FDA guidance, IMDRF. Versioned (corpus-vN). Product-agnostic.")
+
+    ' Layer 5 — Analysis engines (one per UC family)
+    Container(analysis_engines, "Analysis Engines", "Service",
+        "UC1 Change Classifier · UC3 Risk Traceability Resolver · UC2 Baseline Intake Mapper · UC4 PCCP Boundary Checker · UC5 Cybersecurity Sub-Check · UC7 Usability Engineering Module · UC6 Audit Readiness Aggregator. Calls LLM, applies calibration.")
+
+    ' Calibration engine — first-class because of FR5/FR6
+    Container(calibration, "Classification & Calibration Engine", "Service",
+        "Applies IMDRF category × IEC 62304 safety class matrix per output-calibration.md. Reclassification trigger detection (device-level + item-level). AI-overlay for AI/ML products.")
+
+    ' LLM client wrapper
+    Container(llm_client, "LLM Client", "Service",
+        "Version-pinned model + revision. Temperature=0. Structured-output validation. Citation resolver — every cited clause must resolve to ref_corpus before finding emission.")
+
+    ' Layer 6 — Finding store + audit log
+    ContainerDb(finding_store, "Finding Store", "Relational DB schema",
+        "Findings (immutable content), state machine per 5-finding-lifecycle.md, dispositions. Append-only audit log with hash-chained rows, no UPDATE/DELETE grants, independent backup.")
+
+    ' Configuration registry (Git-backed)
+    Container(config_registry, "Configuration Registry", "Git repository",
+        "Canonical schema YAML, calibration matrix YAML, severity floors, routing rules, prompt templates, reclassification triggers, reference corpus content. Tagged releases.")
+
+    ' Run records
+    ContainerDb(run_records, "Run Records", "Append-only table",
+        "Per-run: analysed_version_hash, diff_input_hash, canonical_entities_hash, llm/embedding/prompt/calibration/corpus versions, generated finding IDs. Reproducibility evidence.")
+
+    ' Object store
+    ContainerDb(object_store, "Object Store", "S3-compatible",
+        "Ingested document originals (retention-bounded — DMS owns version history), generated PDF reports, exported audit logs.")
+
+    ' Layer 7 — Delivery
+    Container(ui, "Reviewer UI", "Web app",
+        "Finding inbox, disposition workflow, product / item / traceability registries, audit log viewer, exports. SSO-integrated, role-based access.")
+
+    Container(api, "Integration API", "REST/RPC",
+        "Trigger ingest, query findings, export audit log, push dispositions back to QMS (Tier 4).")
+
+    Container(notifier, "Delivery / Notifier", "Service",
+        "Routes findings per output-calibration matrix to UI inbox, role notifications, and Tier 3+ workflow tasks.")
 }
-skinparam rectangle {
-  BackgroundColor #E1F5FE
-  BorderColor #0277BD
-}
 
-title SRS Review Agent - Container View
+' ============================================================================
+' Trigger flow
+' ============================================================================
 
-package "SRS Review Agent Boundary" {
-  component "SRS Monitor\n(Event Receiver)" as Monitor
-  component "SRS Parser\n(Analysis)" as Parser
-  component "Trace Resolver\n(Lookup)" as Resolver
-  component "Findings Service\n(Generation)" as Findings
-  component "Notification Router\n(Delivery)" as Router
-}
+Rel(source_systems, trigger_recv, "Webhooks (Tier 2) / scheduled pulls (Tier 1)",  "HTTPS")
+Rel(reviewers,      ui,           "Manual upload (Tier 0), disposition findings",   "HTTPS")
+Rel(sys_admin,      ui,           "Operate, configure, escalations",                "HTTPS")
+Rel(stds_sources,   ref_corpus,   "Controlled corpus refresh",                      "Manual / scheduled")
 
-actor "🟦 Regulatory Lead" as Reg
-actor "🟨 Document Owners" as DocOwner
-actor "🟢 SRS Owner" as SRSOwner
+Rel(trigger_recv,   ingestion,        "Queued analysis run")
+Rel(ingestion,      source_systems,   "Pull (current version + diff)",              "Adapter-specific")
+Rel(ingestion,      analysis_store,   "Upsert canonical state, replacing prior")
+Rel(ingestion,      object_store,     "Store ingested original (retention-bounded)")
+Rel(ingestion,      run_records,      "Hashes of analysed input + diff")
 
-cloud "Document Repository /\nVersion Control" as DocRepo
-database "Document Mgmt\nSystem" as DMS
-rectangle "Workflow /\nNotification\nSystem" as WorkflowSystem
+' ============================================================================
+' Analysis flow
+' ============================================================================
 
-Reg -down-> Resolver : baselines
-DocRepo -down-> Monitor : events
-Monitor -right-> Parser : diffs
-Parser -down-> Resolver : change type
-Resolver <-> DMS : doc refs
-Resolver -down-> Findings : impacted docs
-Findings -right-> Router : findings
-Router -up-> WorkflowSystem : alerts
-Router -up-> DocOwner : findings
-SRSOwner <-> Parser : suggestions
+Rel(trigger_recv,    analysis_engines, "Invoke UC1 first; UC3 if safety-relevant; UC2/4/5/7 per trigger")
+Rel(analysis_engines, analysis_store,  "Read current canonical state",     "SQL / graph")
+Rel(analysis_engines, ref_corpus,      "Retrieve clause summaries",        "Vector + SQL")
+Rel(analysis_engines, llm_client,      "Classification, gap reasoning",    "internal")
+Rel(llm_client,       llm,             "Inference",                        "HTTPS")
+Rel(llm_client,       ref_corpus,      "Citation resolution",              "lookup")
+Rel(analysis_engines, calibration,     "Calibrate finding depth/severity/routing")
+Rel(calibration,      analysis_store,  "Read IMDRF category, safety class")
+Rel(calibration,      config_registry, "Read calibration matrix v{N}")
 
-note right of Resolver
-  Uses Tables 1,2,3
-  for traceability
-end note
+Rel(analysis_engines, run_records,    "Append run record (config + hashes)")
+Rel(analysis_engines, finding_store,  "Write findings + audit entries")
 
-note right of Resolver
-  Classification calibration:
-  IMDRF category + IEC 62304
-  software item safety class
-end note
+' ============================================================================
+' Delivery flow
+' ============================================================================
+
+Rel(finding_store,    notifier,       "New findings")
+Rel(notifier,         ui,             "Inbox delivery")
+Rel(notifier,         workflow,       "Tier 3 task creation")
+Rel(workflow,         api,            "Tier 4 disposition sync-back")
+Rel(api,              finding_store,  "Update finding state + audit")
+
+Rel(ui,               finding_store,  "Disposition workflow (Accept/Reject/Defer/Clarify/Route/Escalate/Out of scope)")
+Rel(ui,               run_records,    "Reproducibility view")
+Rel(ui,               object_store,   "Export audit log, change assessment reports")
+
+' ============================================================================
+' Configuration flow (controlled changes)
+' ============================================================================
+
+Rel(config_registry,  analysis_engines, "Schema + prompts + rules (versioned)")
+Rel(config_registry,  ingestion,        "Canonical schema v{N}")
+Rel(config_registry,  llm_client,       "Prompt templates + model pin")
+
+SHOW_LEGEND()
 
 @enduml

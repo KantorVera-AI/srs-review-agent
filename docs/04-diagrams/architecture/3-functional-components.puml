@@ -1,38 +1,201 @@
-@startuml functional-components
-!theme aws-orange
-title Functional Components
+@startuml 3-functional-components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
-package "SRS Review Agent" {
-  component [Event\nReceiver] as Webhook
-  component [SRS Parser\n& Diff] as Parser
-  component [Change\nClassifier] as Classifier
-  component [Traceability\nResolver] as Resolver
-  component [Findings\nGenerator] as Findings
-  component [Notification\nRouter] as Router
-  database [Config DB\n(Table 1,2,3)] as Config
+title SRS Review Agent — Functional Components (Analysis Engines explored)
+
+' ============================================================================
+' Surrounding containers (greyed — defined fully in 2-c4-container.puml)
+' ============================================================================
+
+ContainerDb_Ext(analysis_store,  "Analysis Store",       "DB", "Current canonical state + traceability + classification metadata + run snapshots")
+ContainerDb_Ext(ref_corpus,      "Reference Corpus",     "DB", "Standards clause summaries (versioned)")
+ContainerDb_Ext(finding_store,   "Finding Store",        "DB", "Findings + lifecycle + audit log")
+ContainerDb_Ext(run_records,     "Run Records",          "DB", "Per-run hashes + config versions")
+ContainerDb_Ext(config_registry, "Configuration Registry","Git", "Schema, calibration, prompts, rules — versioned")
+Container_Ext(ingestion,         "Ingestion Layer",      "Adapters", "(current version, diff) → canonical entities")
+Container_Ext(notifier,          "Delivery / Notifier",  "Service")
+Container_Ext(ui,                "Reviewer UI",          "Web app")
+System_Ext(llm,                  "LLM Provider")
+
+' ============================================================================
+' Analysis Engines container — exploded into components
+' ============================================================================
+
+Container_Boundary(engines, "Analysis Engines + supporting components") {
+
+    ' --- Per-use-case engines (build order = file numbering 1..7) ---
+
+    Component(uc1_classifier, "UC1 Change Classifier",
+        "Hybrid rules + LLM",
+        "Classifies SRS deltas into 6 change types\n(clinical · risk/safety · UI/workflow ·\nsecurity/data flows · AI/ML · non-functional).\nTarget ≥85% precision.")
+
+    Component(uc3_resolver, "UC3 Risk Traceability Resolver",
+        "Graph traversal + LLM",
+        "Detects missing / broken / ambiguous\nrisk control ↔ SRS links. Bidirectional check.\nISO 14971 §7.3.3, IEC 62304 §5.2.3.")
+
+    Component(uc2_intake, "UC2 Baseline Intake Mapper",
+        "Per-doc-type extractors + LLM",
+        "Risk plan, usability plan, clinical eval,\ncybersecurity assessment, SAD additions →\nproposed SRS additions. Non-binding suggestions.")
+
+    Component(uc5_cyber, "UC5 Cybersecurity Sub-Check",
+        "Rules + LLM + threat model parser",
+        "OWASP ASVS + IEC 81001-5-1 cross-check.\nThreat model coverage (when structured).")
+
+    Component(uc7_usability, "UC7 Usability Engineering Module",
+        "Use error mapper + post-summative monitor",
+        "Trigger 1: formative → SRS/risk gaps.\nTrigger 3: any post-summative SRS change\n→ mandatory acknowledgement.")
+
+    Component(uc4_pccp, "UC4 PCCP / Article 83 Boundary Checker",
+        "Doc parser + boundary comparator",
+        "AI/ML SRS delta vs approved change control plan.\nWithin / Exceeds / Ambiguous → mandatory escalation.\nFDA PCCP guidance + EU AI Act Article 83.")
+
+    Component(uc6_audit, "UC6 Audit Readiness Aggregator",
+        "Aggregator",
+        "Aggregates findings history, dispositions,\ntraceability gaps, open items.\nFramework-mapped (EU MDR Annex II/III · FDA 21 CFR 820.30).")
+
+    ' --- Cross-cutting engines ---
+
+    Component(reclass_detector, "Reclassification Detector",
+        "Rule + criteria match",
+        "Device-level (IMDRF) + item-level (62304 class)\ntriggers per output-calibration.md.\nGenerates mandatory-acknowledgement findings.")
+
+    Component(calibration_engine, "Classification & Calibration Engine",
+        "Config-driven",
+        "Applies IMDRF × safety class matrix:\nfinding depth, severity floor, citation depth,\nrouting, escalation, evidence requirement,\naudit trail depth. AI-overlay for AI products.")
+
+    Component(metadata_resolver, "Classification Metadata Resolver",
+        "Lookup",
+        "Reads product registry (IMDRF cat.) +\nsoftware item registry (safety class).\nApplies fallback (Cat. III / Class C) on miss\nand emits metadata gap finding.")
+
+    ' --- LLM access + safety ---
+
+    Component(llm_client, "LLM Client",
+        "Service",
+        "Version-pinned model + revision.\nTemperature=0, structured-output validation,\nfull I/O logging to run record.")
+
+    Component(citation_validator, "Citation Validator",
+        "Verifier",
+        "Resolves every cited clause against\nReference Corpus. Findings with unresolvable\ncitations are blocked at emission.")
+
+    Component(prompt_loader, "Prompt Template Loader",
+        "Config",
+        "Loads versioned prompt templates from\nConfiguration Registry. Records prompt\nversion in every run record.")
+
+    ' --- Output assembly + provenance ---
+
+    Component(finding_writer, "Finding Writer",
+        "Service",
+        "Assembles Finding records (id F-YYYYMMDD-NNNN),\napplies calibration outputs, writes to Finding Store.\nImmutable post-write.")
+
+    Component(run_recorder, "Run Recorder",
+        "Service",
+        "One run record per analysis:\nanalysed_version_hash, diff_input_hash,\nentity hashes, model + prompt + calibration +\ncorpus versions, generated finding IDs.")
+
+    Component(audit_writer, "Audit Log Writer",
+        "Service",
+        "Append-only writer with hash chaining.\nNo UPDATE/DELETE grants.\nFinding state transitions per 5-finding-lifecycle.md.")
 }
 
-cloud "Document Repository /\nVersion Control" as DocRepo
-database "Document\nManagement\nSystem" as DMS
+' ============================================================================
+' Inputs to the engines
+' ============================================================================
 
-DocRepo --> Webhook
-Webhook --> Parser
-Parser --> Classifier
-Classifier --> Resolver
-Resolver --> Config
-Resolver --> DMS
-Resolver --> Findings
-Findings --> Router
-Router --> Config
+Rel(ingestion,        analysis_store,    "Replace current canonical state")
+Rel(ingestion,        run_recorder,      "Hashes of analysed input + diff")
 
-note right of Config
-  Tables 1,2,3 as JSON/YAML
+Rel(uc1_classifier,   analysis_store,    "Read current SRS + diff")
+Rel(uc3_resolver,     analysis_store,    "Read RC↔SRS links + safety class")
+Rel(uc2_intake,       analysis_store,    "Read current SRS + ingested baseline")
+Rel(uc5_cyber,        analysis_store,    "Read SRS delta + threat model entries")
+Rel(uc7_usability,    analysis_store,    "Read SRS + use errors + summative baseline")
+Rel(uc4_pccp,         analysis_store,    "Read AI/ML SRS delta + change control plan")
+Rel(uc6_audit,        finding_store,     "Aggregate findings history")
+
+' ============================================================================
+' Calibration + classification metadata
+' ============================================================================
+
+Rel(metadata_resolver, analysis_store,    "Read product registry + item registry")
+Rel(calibration_engine, metadata_resolver,"IMDRF category, safety class")
+Rel(calibration_engine, config_registry,  "Calibration matrix v{N}, severity floors, routing rules")
+
+Rel(uc1_classifier,    calibration_engine,"Calibrate output")
+Rel(uc3_resolver,      calibration_engine,"Calibrate output")
+Rel(uc2_intake,        calibration_engine,"Calibrate output")
+Rel(uc5_cyber,         calibration_engine,"Calibrate output")
+Rel(uc7_usability,     calibration_engine,"Calibrate output")
+Rel(uc4_pccp,          calibration_engine,"Calibrate output")
+Rel(uc6_audit,         calibration_engine,"Apply framework mapping")
+
+Rel(uc1_classifier,    reclass_detector,  "Check reclassification triggers")
+Rel(uc3_resolver,      reclass_detector,  "Check item-level reclassification")
+Rel(uc5_cyber,         reclass_detector,  "Check isolation arg. impact")
+
+' ============================================================================
+' LLM + citations
+' ============================================================================
+
+Rel(uc1_classifier,    llm_client,        "Structured-output classification")
+Rel(uc3_resolver,      llm_client,        "Gap explanation")
+Rel(uc2_intake,        llm_client,        "Suggestion generation")
+Rel(uc5_cyber,         llm_client,        "Coverage reasoning")
+Rel(uc7_usability,     llm_client,        "Use error mapping")
+Rel(uc4_pccp,          llm_client,        "Boundary reasoning")
+
+Rel(llm_client,        llm,               "Inference",                       "HTTPS")
+Rel(llm_client,        prompt_loader,     "Versioned prompt template")
+Rel(prompt_loader,     config_registry,   "Read prompt v{N}")
+Rel(llm_client,        citation_validator,"Validate cited clauses")
+Rel(citation_validator,ref_corpus,        "Resolve clause IDs")
+
+' ============================================================================
+' Output assembly
+' ============================================================================
+
+Rel(uc1_classifier,    finding_writer,    "Finding(s)")
+Rel(uc3_resolver,      finding_writer,    "Finding(s)")
+Rel(uc2_intake,        finding_writer,    "Suggestion set")
+Rel(uc5_cyber,         finding_writer,    "Finding(s)")
+Rel(uc7_usability,     finding_writer,    "Finding(s) + post-summative flags")
+Rel(uc4_pccp,          finding_writer,    "Finding + mandatory escalation")
+Rel(uc6_audit,         finding_writer,    "Audit readiness package")
+Rel(reclass_detector,  finding_writer,    "Reclassification flag")
+
+Rel(finding_writer,    finding_store,     "Write Finding (immutable content)")
+Rel(finding_writer,    audit_writer,      "Initial state transition")
+Rel(finding_writer,    run_recorder,      "Generated finding IDs")
+
+Rel(audit_writer,      finding_store,     "Append audit log row\n(hash-chained)")
+Rel(run_recorder,      run_records,       "Append run record")
+
+Rel(finding_store,     notifier,          "New findings")
+Rel(ui,                finding_store,     "Disposition workflow")
+Rel(ui,                audit_writer,      "State transitions")
+
+' ============================================================================
+' Notes
+' ============================================================================
+
+note bottom of metadata_resolver
+  Per metadata-spec.md fallback table:
+  • Missing IMDRF cat. → Cat. III defaults
+  • Missing safety class → Class C defaults
+  • Both missing → Critical to RA/PRRC + SwArch + Admin
+  • No product registry entry → halt analysis
 end note
 
-note right of Config
-  Tables 1,2,3 as structured config
-  - IMDRF category per product
-  - IEC 62304 safety class per item
+note right of run_recorder
+  Run record = reproducibility evidence.
+  Holds hashes + config versions, NOT
+  document content. The DMS owns
+  long-term document version history.
+end note
+
+note left of calibration_engine
+  Calibration matrix is data, not code.
+  When IMDRF cat. and safety class point
+  to different levels, the more stringent
+  applies — independently per dimension.
 end note
 
 @enduml
